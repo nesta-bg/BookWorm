@@ -16,3 +16,12 @@ ul li {
 mat-toolbar{
     border-radius: 3px;
 }
+
+button a {
+    color: #3f51b5;;
+}
+
+#un {
+    cursor: pointer;
+    font-weight: normal;
+}

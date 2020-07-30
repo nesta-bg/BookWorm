@@ -1,12 +1,9 @@
 <mat-toolbar color="primary">
     <mat-toolbar-row>
-        <span>BookWorm</span>
+        <a routerLink="/">BookWorm</a>
 
         <div fxFlex fxLayout="row" fxLayoutAlign="flex-start">
             <ul fxLayout="row" fxLayoutGap="20px">
-                <li>
-                    <a routerLink="/">Home</a>
-                </li>
                 <li>
                     <a href="#">Link</a>
                 </li>
@@ -19,10 +16,25 @@
         <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
             <ul fxLayout="row" fxLayoutGap="20px">
                 <li>
-                    <span>Register</span>
-                </li>
-                <li>
-                    <span>Login</span>
+                    <a id="un" [matMenuTriggerFor]="menu">username</a>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item>
+                            <mat-icon>list</mat-icon>  
+                            <a routerLink="/myOrders">My Orders</a>
+                        </button>
+                        <button mat-menu-item>
+                            <mat-icon>reorder</mat-icon>
+                            <a routerLink="/admin/orders">Manage Orders</a>
+                        </button>
+                        <button mat-menu-item>
+                            <mat-icon>storage</mat-icon>
+                            <a routerLink="/admin/products">Manage Products</a>
+                        </button>
+                        <button mat-menu-item>
+                            <mat-icon>person_outline</mat-icon>
+                            <a>Log Out</a>
+                        </button>
+                    </mat-menu>
                 </li>
             </ul>
         </div>
