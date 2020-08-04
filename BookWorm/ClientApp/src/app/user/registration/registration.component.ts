@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   templateUrl: './registration.component.html',
@@ -11,7 +12,8 @@ export class RegistrationComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private userService: UserService) { }
+    private userService: UserService,
+    private router: Router) { }
 
   ngOnInit() {
     this.registerForm = this.fb.group({
@@ -52,4 +54,32 @@ export class RegistrationComponent implements OnInit {
         confirmPswrdCtrl.setErrors(null);
     }
   }
+
+  register() {
+    this.userService.register(this.registerForm).subscribe(
+      (res: any) => {
+        if (res.succeeded) {
+          this.registerForm.markAsPristine();
+          this.router.navigate(['']);
+          console.log('success');
+        } else {
+          res.errors.forEach(element => {
+            switch (element.code) {
+              case 'DuplicateUserName':
+                console.log('Username is already taken');
+                break;
+
+              default:
+                console.log('Registration failed');
+                break;
+            }
+          });
+        }
+      },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
 }
