@@ -6,6 +6,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -54,7 +55,14 @@ import { RegistrationComponent } from './user/registration/registration.componen
       { path: 'login', component: LoginComponent },
       { path: 'admin/products', component: AdminProductsComponent },
       { path: 'admin/orders', component: AdminOrdersComponent }
-    ])
+    ]),
+    ToastrModule.forRoot({
+      preventDuplicates: true,
+      timeOut: 2000,
+      closeButton: true,
+      progressBar: true,
+      progressAnimation: 'increasing'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
