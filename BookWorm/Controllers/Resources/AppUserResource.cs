@@ -1,7 +1,10 @@
-﻿namespace BookWorm.Controllers.Resources
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BookWorm.Controllers.Resources
 {
     public class AppUserResource
     {
+        [StringLength(35)]
         public string FullName { get; set; }
 
         public string Email { get; set; }
