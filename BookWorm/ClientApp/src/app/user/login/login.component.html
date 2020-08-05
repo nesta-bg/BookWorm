@@ -10,7 +10,12 @@
                         matInput 
                         placeholder="User Name" 
                         type="text" 
-                        formControlName="userName">
+                        formControlName="userName"
+                        [errorStateMatcher]="matcher">
+                        <mat-hint></mat-hint>
+                        <mat-error *ngIf="username.errors?.required">
+                            User Name is <strong>required</strong>.
+                        </mat-error>
                 </mat-form-field>
             </div>
             <div>
@@ -19,12 +24,19 @@
                         matInput 
                         placeholder="Password" 
                         type="password" 
-                        formControlName="password"> 
+                        formControlName="password"
+                        [errorStateMatcher]="matcher">
+                        <mat-hint></mat-hint>
+                        <mat-error *ngIf="password.errors?.required">
+                            Password is <strong>required</strong>.
+                        </mat-error> 
                 </mat-form-field>
             </div>
         </form>
     </mat-card-content>
     <mat-card-actions>
-        <button mat-flat-button color="primary">Login</button>
+        <button mat-flat-button color="primary"
+            [disabled]="!loginForm.valid" (click)="login()"
+        >Login</button>
     </mat-card-actions>
 </mat-card>

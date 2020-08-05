@@ -19,4 +19,8 @@ export class UserService {
 
         return this.http.post(this.url + '/register', body);
     }
+
+    login(formModel) {
+        return this.http.post(this.url + '/login', formModel);
+    }
 }
