@@ -15,13 +15,15 @@
       
         <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
             <ul fxLayout="row" fxLayoutGap="20px">
-                <li *ngIf="!user">
-                    <a routerLink="/registration">Sign Up</a>
-                </li>
-                <li *ngIf="!user">
-                    <a routerLink="/login">Sign In</a>
-                </li>
-                <li *ngIf="user">
+                <ng-template #anonymousUser>
+                    <li>
+                        <a routerLink="/registration">Sign Up</a>
+                    </li>
+                    <li>
+                        <a routerLink="/login">Sign In</a>
+                    </li>
+                </ng-template>
+                <li *ngIf="user; else anonymousUser">
                     <a id="un" [matMenuTriggerFor]="menu">{{ user.UserName }}</a>
                     <mat-menu #menu="matMenu">
                         <button mat-menu-item>
