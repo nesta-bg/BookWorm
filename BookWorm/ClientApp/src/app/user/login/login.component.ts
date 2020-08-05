@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit {
       (res: any) => {
         if (res && res.token) {
           localStorage.setItem('token', res.token);
+          this.userService.isLoggedIn(true);
           this.loginForm.markAsPristine();
           this.router.navigate(['']);
           this.toastr.success('User logged-in!', 'Login successful.');

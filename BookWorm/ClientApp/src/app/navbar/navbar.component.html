@@ -15,14 +15,14 @@
       
         <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
             <ul fxLayout="row" fxLayoutGap="20px">
-                <li>
+                <li *ngIf="!user">
                     <a routerLink="/registration">Sign Up</a>
                 </li>
-                <li>
+                <li *ngIf="!user">
                     <a routerLink="/login">Sign In</a>
                 </li>
-                <li>
-                    <a id="un" [matMenuTriggerFor]="menu">username</a>
+                <li *ngIf="user">
+                    <a id="un" [matMenuTriggerFor]="menu">{{ user.UserName }}</a>
                     <mat-menu #menu="matMenu">
                         <button mat-menu-item>
                             <mat-icon>list</mat-icon>  
