@@ -35,11 +35,14 @@ namespace BookWorm.Controllers
         [Route("Register")]
         public async Task<Object> Register([FromBody]AppUserResource model)
         {
+            model.Role = "Customer";
+
             var appUser = this.mapper.Map<AppUserResource, AppUser>(model);
 
             try
             {
                 var result = await this.userManager.CreateAsync(appUser, model.Password);
+                await this.userManager.AddToRoleAsync(appUser, model.Role);
                 return Ok(result);
             }
             catch (Exception ex)
