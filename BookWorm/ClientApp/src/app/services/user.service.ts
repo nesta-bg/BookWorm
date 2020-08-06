@@ -40,4 +40,11 @@ export class UserService {
 
         return new JwtHelperService().decodeToken(token);
     }
+
+    isUserLoggedIn() {
+        const helper = new JwtHelperService();
+        let token = localStorage.getItem('token');
+
+        return !helper.isTokenExpired(token);
+    }
 }
