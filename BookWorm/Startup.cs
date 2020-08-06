@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using BookWorm.Data;
 using BookWorm.Models;
 using BookWorm.Persistence;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -37,7 +38,9 @@ namespace BookWorm
 
             services.AddDbContext<BookWormDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
 
-            services.AddDefaultIdentity<AppUser>().AddEntityFrameworkStores<BookWormDbContext>();
+            services.AddDefaultIdentity<AppUser>()
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<BookWormDbContext>();
 
             services.Configure<IdentityOptions>(options => {
                 options.Password.RequireDigit = false;
@@ -85,7 +88,7 @@ namespace BookWorm
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -99,6 +102,10 @@ namespace BookWorm
             app.UseCors("CorsPolicy");
             app.UseHttpsRedirection();
             app.UseMvc();
+
+            app.UseAuthentication();
+
+            BookWormSeeder.SeedData(userManager, roleManager);
         }
     }
 }
