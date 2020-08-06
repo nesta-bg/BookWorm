@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -16,7 +16,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private userService: UserService,
     private router: Router,
-    private toastr: ToastrService) {}
+    private toastr: ToastrService,
+    private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.loginForm = this.fb.group({
@@ -39,7 +40,8 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('token', res.token);
           this.userService.isLoggedIn(true);
           this.loginForm.markAsPristine();
-          this.router.navigate(['']);
+          let returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
+          this.router.navigate([returnUrl || '/']);
           this.toastr.success('User logged-in!', 'Login successful.');
         }
       },
