@@ -30,14 +30,16 @@
                             <mat-icon>list</mat-icon>  
                             <a routerLink="/myOrders">My Orders</a>
                         </button>
-                        <button mat-menu-item>
-                            <mat-icon>reorder</mat-icon>
-                            <a routerLink="/admin/orders">Manage Orders</a>
-                        </button>
-                        <button mat-menu-item>
-                            <mat-icon>storage</mat-icon>
-                            <a routerLink="/admin/products">Manage Products</a>
-                        </button>
+                        <ng-container *ngIf="user.role == 'Admin'">
+                            <button mat-menu-item>
+                                <mat-icon>reorder</mat-icon>
+                                <a routerLink="/admin/orders">Manage Orders</a>
+                            </button>
+                            <button mat-menu-item>
+                                <mat-icon>storage</mat-icon>
+                                <a routerLink="/admin/products">Manage Products</a>
+                            </button>
+                        </ng-container>
                         <button mat-menu-item>
                             <mat-icon>person_outline</mat-icon>
                             <a (click)="logout()">Log Out</a>

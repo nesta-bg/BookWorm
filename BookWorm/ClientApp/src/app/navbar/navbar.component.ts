@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'navbar',
@@ -9,7 +10,9 @@ import { UserService } from '../services/user.service';
 export class NavbarComponent implements OnInit {
   user;
 
-  constructor(private userService: UserService) {
+  constructor(
+    private userService: UserService,
+    private router: Router) {
     this.user = this.userService.currentUser;
   }
 
@@ -24,6 +27,7 @@ export class NavbarComponent implements OnInit {
   logout() {
     localStorage.removeItem('token');
     this.user = null;
+    this.router.navigate(['/']);
   }
 
 }
