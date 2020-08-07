@@ -21,6 +21,9 @@ import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.componen
 import { LoginComponent } from './user/login/login.component';
 import { RegistrationComponent } from './user/registration/registration.component';
 import { AuthGuard } from './services/auth-guard.service';
+import { AdminAuthGuard } from './services/admin-auth-guard.service';
+import { NoAccessComponent } from './no-access/no-access.component';
+
 
 @NgModule({
   declarations: [
@@ -35,7 +38,8 @@ import { AuthGuard } from './services/auth-guard.service';
     AdminProductsComponent,
     AdminOrdersComponent,
     LoginComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    NoAccessComponent
   ],
   imports: [
     BrowserModule,
@@ -51,13 +55,22 @@ import { AuthGuard } from './services/auth-guard.service';
       { path: 'shopping-cart', component: ShoppingCartComponent },
       { path: 'registration', component: RegistrationComponent },
       { path: 'login', component: LoginComponent },
+      {  path: 'no-access', component: NoAccessComponent },
 
       { path: 'check-out', component: CheckOutComponent, canActivate: [AuthGuard] },
       { path: 'order-success', component: OrderSuccessComponent, canActivate: [AuthGuard] },
       { path: 'myOrders', component: MyOrdersComponent, canActivate: [AuthGuard] },
 
-      { path: 'admin/products', component: AdminProductsComponent, canActivate: [AuthGuard] },
-      { path: 'admin/orders', component: AdminOrdersComponent, canActivate: [AuthGuard] }
+      {
+        path: 'admin/products',
+        component: AdminProductsComponent,
+        canActivate: [AuthGuard, AdminAuthGuard]
+      },
+      {
+        path: 'admin/orders',
+        component: AdminOrdersComponent,
+        canActivate: [AuthGuard, AdminAuthGuard]
+      }
     ]),
     ToastrModule.forRoot({
       preventDuplicates: true,

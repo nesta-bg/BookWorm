@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -58,12 +59,17 @@ namespace BookWorm.Controllers
             var user = await this.userManager.FindByNameAsync(model.UserName);
             if (user != null && await this.userManager.CheckPasswordAsync(user, model.Password))
             {
+                //Get role assigned to the user
+                var role = await this.userManager.GetRolesAsync(user);
+                IdentityOptions options = new IdentityOptions();
+                
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
                     Subject = new ClaimsIdentity(new Claim[]
                     {
                         new Claim("UserID", user.Id.ToString()),
-                        new Claim("UserName", user.UserName)
+                        new Claim("UserName", user.UserName),
+                        new Claim(options.ClaimsIdentity.RoleClaimType, role.FirstOrDefault())
                     }),
                     Expires = DateTime.UtcNow.AddDays(1),
                     SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this.authSettings.JWT_Secret)), SecurityAlgorithms.HmacSha256Signature)
