@@ -6,6 +6,9 @@ namespace BookWorm.Persistence
 {
     public class BookWormDbContext : IdentityDbContext
     {
+        public DbSet<Book> Books { get; set; }
+        public DbSet<Category> Categories { get; set; }
+
         public DbSet<AppUser> AppUsers { get; set; }
 
         public BookWormDbContext(DbContextOptions<BookWormDbContext> options)
