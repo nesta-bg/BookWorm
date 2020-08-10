@@ -23,6 +23,7 @@ import { RegistrationComponent } from './user/registration/registration.componen
 import { AuthGuard } from './services/auth-guard.service';
 import { AdminAuthGuard } from './services/admin-auth-guard.service';
 import { NoAccessComponent } from './no-access/no-access.component';
+import { ProductFormComponent } from './admin/product-form/product-form.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { NoAccessComponent } from './no-access/no-access.component';
     AdminOrdersComponent,
     LoginComponent,
     RegistrationComponent,
-    NoAccessComponent
+    NoAccessComponent,
+    ProductFormComponent
   ],
   imports: [
     BrowserModule,
@@ -64,6 +66,11 @@ import { NoAccessComponent } from './no-access/no-access.component';
       {
         path: 'admin/products',
         component: AdminProductsComponent,
+        canActivate: [AuthGuard, AdminAuthGuard]
+      },
+      {
+        path: 'admin/products/new',
+        component: ProductFormComponent,
         canActivate: [AuthGuard, AdminAuthGuard]
       },
       {
