@@ -18,6 +18,11 @@ namespace BookWorm.Persistence
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Book>()
+                .Property(b => b.Price)
+                .HasColumnType("decimal(8,2)");
+
         }
             
     }
