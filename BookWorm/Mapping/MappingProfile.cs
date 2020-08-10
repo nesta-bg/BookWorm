@@ -9,8 +9,10 @@ namespace BookWorm.Mapping
         public MappingProfile()
         {
             CreateMap<AppUserResource, AppUser>();
+            CreateMap<BookResource, Book>();
 
             CreateMap<Category, CategoryResource>();
+            CreateMap<Book, BookResource>();
         }
     }
 }
