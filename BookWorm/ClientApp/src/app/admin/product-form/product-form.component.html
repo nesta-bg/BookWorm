@@ -1,24 +1,24 @@
-<form class="product-form">
+<form [formGroup]="productForm" autocomplete="off" class="product-form">
     <mat-form-field class="product-full-width">
-        <input type="text" matInput placeholder="Title">
+        <input type="text" matInput placeholder="Title" formControlName="title">
     </mat-form-field>
 
     <mat-form-field class="product-full-width">
-        <input type="number" matInput placeholder="$ Price">
+        <input type="number" matInput placeholder="$ Price" formControlName="price">
     </mat-form-field>
 
     <mat-form-field class="product-full-width">
         <mat-label>Choose Category</mat-label>
-        <mat-select>
-            <mat-option *ngFor="let category of categories" [value]="category.valueName">
+        <mat-select formControlName="categoryId">
+            <mat-option *ngFor="let category of categories" [value]="category.id">
                 {{ category.displayName }}
             </mat-option>
         </mat-select>
     </mat-form-field>
 
     <mat-form-field class="product-full-width">
-        <input type="text" matInput placeholder="Image URL">
+        <input type="text" matInput placeholder="Image URL" formControlName="imageUrl">
     </mat-form-field>
-    
-    <button mat-flat-button color="primary">Save</button>
+
+    <button mat-flat-button color="primary" (click)="save()">Save</button>
 </form>
