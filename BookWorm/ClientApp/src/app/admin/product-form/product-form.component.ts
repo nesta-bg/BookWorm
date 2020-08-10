@@ -1,10 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-
-export interface Category {
-  value: number;
-  viewValue: string;
-}
+import { CategoryService } from 'src/app/services/category.service';
 
 @Component({
   selector: 'product-form',
@@ -12,16 +7,13 @@ export interface Category {
   styleUrls: ['./product-form.component.css']
 })
 export class ProductFormComponent implements OnInit {
+  categories;
 
-  categories: Category[] = [
-    {value: 1, viewValue: 'One'},
-    {value: 2, viewValue: 'Two'},
-    {value: 3, viewValue: 'Three'}
-  ];
-
-  constructor() { }
+  constructor(private categoryService: CategoryService) { }
 
   ngOnInit() {
+    this.categoryService.getCategories()
+      .subscribe(categories => this.categories = categories);
   }
 
 }

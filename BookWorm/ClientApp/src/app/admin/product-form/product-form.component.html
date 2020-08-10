@@ -10,9 +10,9 @@
     <mat-form-field class="product-full-width">
         <mat-label>Choose Category</mat-label>
         <mat-select>
-          <mat-option *ngFor="let category of categories" [value]="category.value">
-            {{ category.viewValue }}
-          </mat-option>
+            <mat-option *ngFor="let category of categories" [value]="category.valueName">
+                {{ category.displayName }}
+            </mat-option>
         </mat-select>
     </mat-form-field>
 
