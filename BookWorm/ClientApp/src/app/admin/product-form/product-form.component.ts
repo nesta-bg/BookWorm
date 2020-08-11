@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from 'src/app/services/category.service';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ProductService } from 'src/app/services/product.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -24,11 +24,24 @@ export class ProductFormComponent implements OnInit {
 
   ngOnInit() {
     this.productForm = this.fb.group({
-      title: [''],
-      price: [''],
-      categoryId: [''],
-      imageUrl: ['']
+      title: ['', Validators.required],
+      price: ['', Validators.required],
+      categoryId: ['', Validators.required],
+      imageUrl: ['', Validators.required]
     });
+  }
+
+  get title() {
+    return this.productForm.get('title');
+  }
+  get price() {
+    return this.productForm.get('price');
+  }
+  get categoryId() {
+    return this.productForm.get('categoryId');
+  }
+  get imageUrl() {
+    return this.productForm.get('imageUrl');
   }
 
   save() {

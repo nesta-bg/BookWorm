@@ -1,23 +1,54 @@
 <form [formGroup]="productForm" autocomplete="off" class="product-form">
     <mat-form-field class="product-full-width">
-        <input type="text" matInput placeholder="Title" formControlName="title">
+        <input 
+            matInput    
+            placeholder="Title" 
+            type="text" 
+            formControlName="title"
+            [errorStateMatcher]="matcher">
+            <mat-hint></mat-hint>
+            <mat-error *ngIf="title.errors?.required">
+                Title is <strong>required</strong>.
+            </mat-error>
     </mat-form-field>
 
     <mat-form-field class="product-full-width">
-        <input type="number" matInput placeholder="$ Price" formControlName="price">
+        <input 
+            matInput 
+            placeholder="$ Price" 
+            type="number" 
+            formControlName="price"
+            [errorStateMatcher]="matcher">
+            <mat-hint></mat-hint>
+            <mat-error *ngIf="price.errors?.required">
+                Price is <strong>required</strong>.
+            </mat-error>
     </mat-form-field>
 
     <mat-form-field class="product-full-width">
         <mat-label>Choose Category</mat-label>
-        <mat-select formControlName="categoryId">
+        <mat-select formControlName="categoryId" [errorStateMatcher]="matcher">
             <mat-option *ngFor="let category of categories" [value]="category.id">
                 {{ category.displayName }}
             </mat-option>
         </mat-select>
+        <mat-hint></mat-hint>
+        <mat-error *ngIf="categoryId.errors?.required">
+            Category is <strong>required</strong>.
+        </mat-error>
     </mat-form-field>
 
     <mat-form-field class="product-full-width">
-        <input type="text" matInput placeholder="Image URL" formControlName="imageUrl">
+        <input 
+            matInput 
+            placeholder="Image URL" 
+            type="text" 
+            formControlName="imageUrl"
+            [errorStateMatcher]="matcher">
+            <mat-hint></mat-hint>
+            <mat-error *ngIf="imageUrl.errors?.required">
+                ImageUrl is <strong>required</strong>.
+            </mat-error>
     </mat-form-field>
 
     <button mat-flat-button color="primary" (click)="save()">Save</button>
