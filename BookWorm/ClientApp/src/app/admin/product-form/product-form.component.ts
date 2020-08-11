@@ -3,6 +3,7 @@ import { CategoryService } from 'src/app/services/category.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ProductService } from 'src/app/services/product.service';
 import { ToastrService } from 'ngx-toastr';
+import { PriceValidators } from 'src/app/shared/price.validators';
 
 @Component({
   selector: 'product-form',
@@ -25,7 +26,7 @@ export class ProductFormComponent implements OnInit {
   ngOnInit() {
     this.productForm = this.fb.group({
       title: ['', Validators.required],
-      price: ['', Validators.required],
+      price: ['', [Validators.required, PriceValidators.shouldBePositive]],
       categoryId: ['', Validators.required],
       imageUrl: ['', Validators.required]
     });

@@ -23,6 +23,9 @@
             <mat-error *ngIf="price.errors?.required">
                 Price is <strong>required</strong>.
             </mat-error>
+            <mat-error *ngIf="price.errors?.shouldBePositive">
+                Price value should be 0 or higher.
+            </mat-error>
     </mat-form-field>
 
     <mat-form-field class="product-full-width">
