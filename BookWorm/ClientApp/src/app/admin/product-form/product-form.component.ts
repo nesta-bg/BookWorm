@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ProductService } from 'src/app/services/product.service';
 import { ToastrService } from 'ngx-toastr';
 import { PriceValidators } from 'src/app/shared/price.validators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'product-form',
@@ -18,7 +19,8 @@ export class ProductFormComponent implements OnInit {
     private categoryService: CategoryService,
     private fb: FormBuilder,
     private productService: ProductService,
-    private toastr: ToastrService) {
+    private toastr: ToastrService,
+    private router: Router) {
     this.categoryService.getCategories()
       .subscribe(categories => this.categories = categories);
   }
@@ -50,6 +52,7 @@ export class ProductFormComponent implements OnInit {
       (res: any) => {
         this.productForm.markAsPristine();
         this.toastr.success('New product created!', 'Successful product creation.');
+        this.router.navigate(['/admin/products']);
       },
       err => {
         this.toastr.error('Error', 'Product creation failed.');
