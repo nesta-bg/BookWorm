@@ -1,5 +1,33 @@
-<button mat-flat-button color="primary">
-    <a routerLink="/admin/products/new">
-        New Product
-    </a>
-</button>
+<p>
+    <button mat-flat-button color="primary">
+        <a routerLink="/admin/products/new">
+            New Product
+        </a>
+    </button>
+</p>
+
+<table mat-table [dataSource]="products" class="book-table">
+    <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef> Title </th>
+        <td mat-cell *matCellDef="let element"> <strong>{{element.title}}</strong> </td>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef> Price </th>
+        <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+            <button mat-flat-button color="accent">
+                <a [routerLink]="['/admin/products/', element.id]">
+                    Edit
+                </a>
+            </button>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

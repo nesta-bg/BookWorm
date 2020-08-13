@@ -6,3 +6,11 @@ a {
 a:hover, a:active{
     color: lightgray;
 }
+
+table {
+    width: 100%;
+}
+
+.book-table {
+    min-width: 800px;
+}
