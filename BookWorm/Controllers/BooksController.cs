@@ -30,6 +30,19 @@ namespace BookWorm.Controllers
             return mapper.Map<List<Book>, List<BookResource>>(books);
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetBook(int id)
+        {
+            var book = await context.Books.SingleAsync(b => b.Id == id);
+
+            if (book == null)
+                return NotFound();
+
+            var bookResource = mapper.Map<Book, BookResource>(book);
+
+            return Ok(bookResource);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateBook([FromBody] BookResource bookResource)
         {

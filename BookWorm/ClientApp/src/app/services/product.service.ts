@@ -17,4 +17,8 @@ export class ProductService {
   getAll() {
     return this.http.get<Book[]>(this.url);
   }
+
+  get(productId) {
+    return this.http.get<Book>(this.url + '/' + productId);
+  }
 }

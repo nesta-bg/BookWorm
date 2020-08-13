@@ -4,7 +4,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ProductService } from 'src/app/services/product.service';
 import { ToastrService } from 'ngx-toastr';
 import { PriceValidators } from 'src/app/shared/price.validators';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { take } from 'rxjs/operators';
+import { Book } from 'src/app/models/Book';
 
 @Component({
   selector: 'product-form',
@@ -20,9 +22,16 @@ export class ProductFormComponent implements OnInit {
     private fb: FormBuilder,
     private productService: ProductService,
     private toastr: ToastrService,
-    private router: Router) {
+    private router: Router,
+    private route: ActivatedRoute) {
     this.categoryService.getCategories()
       .subscribe(categories => this.categories = categories);
+
+    let id = this.route.snapshot.paramMap.get('id');
+
+    // if (id) this.productService.get(id).pipe(take(1)).subscribe(p => this.product = p);
+    if (id)
+      this.productService.get(id).subscribe(p => this.editProduct(p));
   }
 
   ngOnInit() {
@@ -45,6 +54,15 @@ export class ProductFormComponent implements OnInit {
   }
   get imageUrl() {
     return this.productForm.get('imageUrl');
+  }
+
+  editProduct(product: Book) {
+    this.productForm.patchValue({
+      title: product.title,
+      price: product.price,
+      categoryId: product.categoryId,
+      imageUrl: product.imageUrl
+    });
   }
 
   save() {
