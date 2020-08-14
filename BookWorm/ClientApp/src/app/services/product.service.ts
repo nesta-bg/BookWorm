@@ -21,4 +21,8 @@ export class ProductService {
   get(productId) {
     return this.http.get<Book>(this.url + '/' + productId);
   }
+
+  update(productId, product) {
+    return this.http.put(this.url + '/' + productId, product);
+  }
 }

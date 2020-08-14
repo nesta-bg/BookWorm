@@ -16,6 +16,7 @@ import { Book } from 'src/app/models/Book';
 export class ProductFormComponent implements OnInit {
   productForm: FormGroup;
   categories;
+  id;
 
   constructor(
     private categoryService: CategoryService,
@@ -27,11 +28,11 @@ export class ProductFormComponent implements OnInit {
     this.categoryService.getCategories()
       .subscribe(categories => this.categories = categories);
 
-    let id = this.route.snapshot.paramMap.get('id');
+    this.id = this.route.snapshot.paramMap.get('id');
 
-    // if (id) this.productService.get(id).pipe(take(1)).subscribe(p => this.product = p);
-    if (id)
-      this.productService.get(id).subscribe(p => this.editProduct(p));
+    // if (this.id) this.productService.get(id).pipe(take(1)).subscribe(p => this.product = p);
+    if (this.id)
+      this.productService.get(this.id).subscribe(p => this.editProduct(p));
   }
 
   ngOnInit() {
@@ -66,16 +67,30 @@ export class ProductFormComponent implements OnInit {
   }
 
   save() {
-    this.productService.create(this.productForm.value).subscribe(
-      (res: any) => {
-        this.productForm.markAsPristine();
-        this.toastr.success('New product created!', 'Successful product creation.');
-        this.router.navigate(['/admin/products']);
-      },
-      err => {
-        this.toastr.error('Error', 'Product creation failed.');
-        console.log(err);
-      }
-    );
+    if (this.id) {
+      this.productService.update(this.id, this.productForm.value).subscribe(
+        (res: any) => {
+          this.productForm.markAsPristine();
+          this.toastr.success('New product updated!', 'Product successfully updated.');
+          this.router.navigate(['/admin/products']);
+        },
+        err => {
+          this.toastr.error('Error', 'Updating failed.');
+          console.log(err);
+        }
+      );
+    } else {
+      this.productService.create(this.productForm.value).subscribe(
+        (res: any) => {
+          this.productForm.markAsPristine();
+          this.toastr.success('New product created!', 'Successful product creation.');
+          this.router.navigate(['/admin/products']);
+        },
+        err => {
+          this.toastr.error('Error', 'Product creation failed.');
+          console.log(err);
+        }
+      );
+    }
   }
 }

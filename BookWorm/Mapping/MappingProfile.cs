@@ -9,8 +9,9 @@ namespace BookWorm.Mapping
         public MappingProfile()
         {
             CreateMap<AppUserResource, AppUser>();
-            CreateMap<BookResource, Book>();
-
+            CreateMap<BookResource, Book>()
+                .ForMember(b => b.Id, opt => opt.Ignore());
+            
             CreateMap<Category, CategoryResource>();
             CreateMap<Book, BookResource>();
         }

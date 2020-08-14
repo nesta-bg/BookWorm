@@ -57,6 +57,23 @@ namespace BookWorm.Controllers
 
             return Ok(result);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateBook(int id, [FromBody] BookResource bookResource)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var book = await context.Books.SingleOrDefaultAsync(b => b.Id == id);
+
+            if (book == null)
+                return NotFound();
+
+            mapper.Map(bookResource, book);
+            context.SaveChanges();
+
+            return Ok(mapper.Map<Book, BookResource>(book));
+        }
     }
 }
 
