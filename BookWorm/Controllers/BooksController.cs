@@ -74,6 +74,20 @@ namespace BookWorm.Controllers
 
             return Ok(mapper.Map<Book, BookResource>(book));
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteBook(int id)
+        {
+            var book = await context.Books.SingleOrDefaultAsync(b => b.Id == id);
+
+            if (book == null)
+                return NotFound();
+
+            context.Books.Remove(book);
+            context.SaveChanges();
+
+            return Ok();
+        }
     }
 }
 

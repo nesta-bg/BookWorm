@@ -93,4 +93,19 @@ export class ProductFormComponent implements OnInit {
       );
     }
   }
+
+  delete() {
+    if (!confirm('Are you sure you want to delete this product?')) return;
+    this.productService.delete(this.id).subscribe(
+      (res: any) => {
+        this.toastr.success('Product deleted!', 'Successful product deletion.');
+        this.router.navigate(['/admin/products']);
+      },
+      err => {
+        this.toastr.error('Error', 'Product creation failed.');
+        console.log(err);
+      }
+    );
+  }
+
 }
