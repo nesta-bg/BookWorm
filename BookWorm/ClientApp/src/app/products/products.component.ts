@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ProductService } from '../services/product.service';
+import { CategoryService } from '../services/category.service';
 
 @Component({
   selector: 'app-products',
@@ -8,8 +9,11 @@ import { ProductService } from '../services/product.service';
 })
 export class ProductsComponent {
   products;
+  categories;
 
-  constructor(private productService: ProductService) {
+  constructor(
+    private productService: ProductService,
+    private categoryService: CategoryService) {
     this.productService.getAll()
       .subscribe(
         (products: any) => {
@@ -19,6 +23,9 @@ export class ProductsComponent {
           console.log(err);
         }
       );
+
+    this.categoryService.getAll()
+      .subscribe(categories => this.categories = categories);
   }
 
 }

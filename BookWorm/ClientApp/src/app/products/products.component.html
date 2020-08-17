@@ -1,19 +1,36 @@
-<div fxLayout="row wrap" fxLayoutAlign="space-between">
-    <div *ngFor="let p of products" fxFlex="0 0 22%" fxFlex.sm="0 0 48%" fxFlex.xs="0 0 100%" [ngStyle]="{ 'margin-bottom.%': 4 }">
-        <mat-card class="product-card">
-            <mat-card-header>
-                <mat-card-title>{{ p.title }}</mat-card-title>
-            </mat-card-header>
-            <img mat-card-image [src]="p.imageUrl" alt="Photo of a Shiba Inu">
-            <mat-card-content>
-                <p>{{ p.price | currency }}</p>
-            </mat-card-content>
-            <mat-card-actions>
-                <button mat-button>ADD TO CART</button>
-            </mat-card-actions>
-        </mat-card>
-    </div>
-</div>
+<mat-drawer-container>
+    <mat-drawer mode="side" opened>
+        <mat-toolbar>
+            <mat-toolbar-row class="category">
+                <span>Category</span>
+            </mat-toolbar-row>
+            <mat-toolbar-row *ngFor="let c of categories">
+                <span>
+                    <a href="#">{{ c.displayName }}
+                    </a>
+                </span>
+            </mat-toolbar-row>
+        </mat-toolbar>
+    </mat-drawer>
+    <mat-drawer-content>
+        <div fxLayout="row wrap" fxLayoutAlign="space-between">
+            <div *ngFor="let p of products" fxFlex="0 0 22%" fxFlex.sm="0 0 48%" fxFlex.xs="0 0 100%" [ngStyle]="{ 'margin-bottom.%': 4 }">
+                <mat-card class="product-card">
+                    <mat-card-header>
+                        <mat-card-title>{{ p.title }}</mat-card-title>
+                    </mat-card-header>
+                    <img mat-card-image [src]="p.imageUrl" alt="Photo of a Shiba Inu">
+                    <mat-card-content>
+                        <p>{{ p.price | currency }}</p>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button mat-button>ADD TO CART</button>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+        </div> 
+    </mat-drawer-content>
+</mat-drawer-container>
 
 
 
