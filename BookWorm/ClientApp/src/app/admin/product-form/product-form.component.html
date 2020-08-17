@@ -49,7 +49,7 @@
         </form>
     </div>
     <div>
-        <mat-card class="image-card">
+        <mat-card *ngIf="title.value" class="image-card">
             <mat-card-header>
               <mat-card-title>{{ title.value }}</mat-card-title>
             </mat-card-header>
