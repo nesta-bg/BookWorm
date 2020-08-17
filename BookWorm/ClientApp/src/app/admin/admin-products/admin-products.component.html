@@ -11,14 +11,14 @@
 </mat-form-field>
 
 <div>
-    <table mat-table [dataSource]="products" class="book-table">
+    <table mat-table [dataSource]="products" class="book-table" matSort>
         <ng-container matColumnDef="title">
-            <th mat-header-cell *matHeaderCellDef> Title </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Title </th>
             <td mat-cell *matCellDef="let element"> <strong>{{element.title}}</strong> </td>
         </ng-container>
 
         <ng-container matColumnDef="price">
-            <th mat-header-cell *matHeaderCellDef> Price </th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
             <td mat-cell *matCellDef="let element"> {{element.price}} </td>
         </ng-container>
 

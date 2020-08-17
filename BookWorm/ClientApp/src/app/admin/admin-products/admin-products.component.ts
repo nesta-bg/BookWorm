@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProductService } from 'src/app/services/product.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { Book } from 'src/app/models/Book';
-import { MatPaginator } from '@angular/material';
+import { MatPaginator, MatSort } from '@angular/material';
 
 @Component({
   selector: 'app-admin-products',
@@ -14,6 +14,7 @@ export class AdminProductsComponent implements OnInit {
   products: MatTableDataSource<Book>;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(private productService: ProductService) {
     this.productService.getAll()
@@ -21,6 +22,7 @@ export class AdminProductsComponent implements OnInit {
         (res: any) => {
           this.products = new MatTableDataSource(res);
           this.products.paginator = this.paginator;
+          this.products.sort = this.sort;
         },
         err => {
           console.log(err);
