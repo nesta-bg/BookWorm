@@ -5,6 +5,7 @@ using BookWorm.Persistence;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BookWorm.Controllers
@@ -41,6 +42,14 @@ namespace BookWorm.Controllers
             var bookResource = mapper.Map<Book, BookResource>(book);
 
             return Ok(bookResource);
+        }
+
+        [HttpGet("category/{category}")]
+        public async Task<IEnumerable<BookResource>> GetBooksByCategory(string category)
+        {
+            var books = await context.Books.Where(b => b.Category.ValueName == category).ToListAsync();
+
+            return mapper.Map<List<Book>, List<BookResource>>(books);
         }
 
         [HttpPost]

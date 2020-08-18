@@ -23,6 +23,8 @@ namespace BookWorm.Persistence
                 .Property(b => b.Price)
                 .HasColumnType("decimal(8,2)");
 
+            modelBuilder.Entity<Category>()
+                .HasAlternateKey(c => c.ValueName);
         }
             
     }
