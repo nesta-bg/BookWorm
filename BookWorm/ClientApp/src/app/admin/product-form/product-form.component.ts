@@ -25,7 +25,7 @@ export class ProductFormComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router,
     private route: ActivatedRoute) {
-    this.categoryService.getCategories()
+    this.categoryService.getAll()
       .subscribe(categories => this.categories = categories);
 
     this.id = this.route.snapshot.paramMap.get('id');

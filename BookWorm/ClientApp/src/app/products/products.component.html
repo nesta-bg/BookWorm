@@ -1,20 +1,22 @@
 <mat-drawer-container>
     <mat-drawer mode="side" opened>
         <mat-toolbar>
-            <mat-toolbar-row class="category">
-                <span>Category</span>
-            </mat-toolbar-row>
-            <mat-toolbar-row *ngFor="let c of categories">
+            <mat-toolbar-row >
                 <span>
-                    <a href="#">{{ c.displayName }}
+                    <a href="#">All Categories</a>
+                </span>
+            </mat-toolbar-row>
+            <mat-toolbar-row *ngFor="let c of categories" [class.active]="category == c.valueName">
+                <span>
+                    <a routerLink="/" [queryParams]="{ category: c.valueName }">{{ c.displayName }}
                     </a>
                 </span>
             </mat-toolbar-row>
         </mat-toolbar>
     </mat-drawer>
     <mat-drawer-content>
-        <div fxLayout="row wrap" fxLayoutAlign="space-between">
-            <div *ngFor="let p of products" fxFlex="0 0 22%" fxFlex.sm="0 0 48%" fxFlex.xs="0 0 100%" [ngStyle]="{ 'margin-bottom.%': 4 }">
+        <div fxLayout="row wrap" fxLayoutAlign="start" fxLayoutGap="2%">
+            <div *ngFor="let p of filteredProducts" fxFlex="0 0 21%" fxFlex.sm="0 0 46%" fxFlex.xs="0 0 96%" [ngStyle]="{ 'margin-bottom.%': 4 }">
                 <mat-card class="product-card">
                     <mat-card-header>
                         <mat-card-title>{{ p.title }}</mat-card-title>

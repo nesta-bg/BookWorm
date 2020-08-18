@@ -22,6 +22,10 @@ export class ProductService {
     return this.http.get<Book>(this.url + '/' + productId);
   }
 
+  getProductsByCategory(category) {
+    return this.http.get<Book[]>(this.url + '/category/' + category);
+  }
+
   update(productId, product) {
     return this.http.put(this.url + '/' + productId, product);
   }
