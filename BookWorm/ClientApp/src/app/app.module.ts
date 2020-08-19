@@ -24,6 +24,7 @@ import { AuthGuard } from './services/auth-guard.service';
 import { AdminAuthGuard } from './services/admin-auth-guard.service';
 import { NoAccessComponent } from './no-access/no-access.component';
 import { ProductFormComponent } from './admin/product-form/product-form.component';
+import { ProductFilterComponent } from './products/product-filter/product-filter.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { ProductFormComponent } from './admin/product-form/product-form.componen
     LoginComponent,
     RegistrationComponent,
     NoAccessComponent,
-    ProductFormComponent
+    ProductFormComponent,
+    ProductFilterComponent
   ],
   imports: [
     BrowserModule,

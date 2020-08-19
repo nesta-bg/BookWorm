@@ -1,0 +1,13 @@
+<mat-toolbar>
+    <mat-toolbar-row [class.active]="!category">
+        <span>
+            <a routerLink="/">All Categories</a>
+        </span>
+    </mat-toolbar-row>
+    <mat-toolbar-row *ngFor="let c of categories" [class.active]="category == c.valueName">
+        <span>
+            <a routerLink="/" [queryParams]="{ category: c.valueName }">{{ c.displayName }}
+            </a>
+        </span>
+    </mat-toolbar-row>
+</mat-toolbar>
