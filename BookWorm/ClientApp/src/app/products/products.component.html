@@ -1,9 +1,9 @@
 <mat-drawer-container>
     <mat-drawer mode="side" opened>
         <mat-toolbar>
-            <mat-toolbar-row >
+            <mat-toolbar-row [class.active]="!category">
                 <span>
-                    <a href="#">All Categories</a>
+                    <a routerLink="/">All Categories</a>
                 </span>
             </mat-toolbar-row>
             <mat-toolbar-row *ngFor="let c of categories" [class.active]="category == c.valueName">
