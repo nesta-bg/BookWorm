@@ -49,14 +49,6 @@
         </form>
     </div>
     <div>
-        <mat-card *ngIf="title.value" class="image-card">
-            <mat-card-header>
-              <mat-card-title>{{ title.value }}</mat-card-title>
-            </mat-card-header>
-            <img mat-card-image [src]="imageUrl.value">
-            <mat-card-content>
-                <p>{{ price.value | currency }}</p>
-            </mat-card-content>
-        </mat-card>
+        <product-card [product]="productForm.value" [show-actions]="false"></product-card>
     </div>
 </div>

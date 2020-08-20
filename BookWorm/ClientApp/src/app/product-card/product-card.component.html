@@ -1,0 +1,12 @@
+<mat-card *ngIf="product.title" class="product-card">
+    <mat-card-header>
+        <mat-card-title>{{ product.title }}</mat-card-title>
+    </mat-card-header>
+    <img *ngIf="product.imageUrl" mat-card-image [src]="product.imageUrl" alt="{{ product.title }}">
+    <mat-card-content>
+        <p>{{ product.price | currency }}</p>
+    </mat-card-content>
+    <mat-card-actions *ngIf="showActions">
+        <button mat-button>ADD TO CART</button>
+    </mat-card-actions>
+</mat-card>
