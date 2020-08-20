@@ -4,7 +4,7 @@
     </mat-drawer>
     <mat-drawer-content>
         <div fxLayout="row wrap" fxLayoutAlign="start" fxLayoutGap="2%">
-            <div *ngFor="let p of filteredProducts" fxFlex="0 0 21%" fxFlex.sm="0 0 46%" fxFlex.xs="0 0 96%" [ngStyle]="{ 'margin-bottom.%': 4 }">
+            <div *ngFor="let p of filteredProducts" fxFlex="0 0 21%" fxFlex.sm="0 0 46%" fxFlex.xs="0 0 96%">
                 <product-card [product]="p"></product-card>
             </div>
         </div> 

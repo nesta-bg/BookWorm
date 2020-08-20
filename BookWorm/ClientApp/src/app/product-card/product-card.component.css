@@ -1,3 +1,8 @@
 .product-card {
     max-width: 220px;
+    margin-bottom: 30px;
+}
+
+button {
+    width: 100%;
 }
