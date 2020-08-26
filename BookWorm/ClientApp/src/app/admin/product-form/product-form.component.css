@@ -1,3 +1,7 @@
+mat-drawer-container {
+  padding: 80px;
+}
+
 .product-form {
     min-width: 150px;
     max-width: 350px;

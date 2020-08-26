@@ -1,9 +1,9 @@
-.register-card {
-    max-width: 900px;
+mat-drawer-container {
+  padding: 80px;
 }
  
 .register-form {
-    min-width: 270px;
+    min-width: 370px;
     max-width: 900px;
     width: 100%;
   }
@@ -11,7 +11,8 @@
   .register-full-width {
     width: 100%;
   }
-
+ 
   mat-form-field {
       padding-top: 30px;
   }
+

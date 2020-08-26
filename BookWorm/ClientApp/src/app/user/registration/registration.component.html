@@ -1,8 +1,6 @@
-<mat-card class="register-card">
-    <mat-card-header>
-        <mat-card-title>Registration</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
+<mat-drawer-container fxLayout="row" fxLayoutAlign="center center">
+    <mat-drawer-content>
+        <h1>Registration</h1>
         <form [formGroup]="registerForm" autocomplete="off" class="register-form">
             <div>
                 <mat-form-field class="register-full-width">
@@ -10,14 +8,14 @@
                         matInput 
                         placeholder="Full Name" 
                         type="text" 
-                        formControlName="fullName" 
+                        formControlName="fullName"
                         [errorStateMatcher]="matcher">
                     <mat-hint></mat-hint>
                     <mat-error *ngIf="fullname.errors?.required">
                         Fullname is <strong>required</strong>.
                     </mat-error>
                     <mat-error *ngIf="fullname.errors?.maxlength">
-                        Username should be maximum {{ fullname.errors.maxlength.requiredLength }} charaters.
+                        Username should be maximum {{ fullname.errors.maxlength.requiredLength }} characters.
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -27,7 +25,7 @@
                         matInput 
                         placeholder="Email" 
                         type="text" 
-                        formControlName="email" 
+                        formControlName="email"
                         [errorStateMatcher]="matcher">
                     <mat-hint></mat-hint>
                     <mat-error *ngIf="email.errors?.required">
@@ -35,7 +33,7 @@
                     </mat-error>
                     <mat-error *ngIf="email.errors?.email">
                         Please type a valid email.
-                    </mat-error>  
+                    </mat-error>
                 </mat-form-field>
             </div>
             <div>
@@ -44,14 +42,14 @@
                         matInput 
                         placeholder="User Name" 
                         type="text" 
-                        formControlName="userName" 
+                        formControlName="userName"
                         [errorStateMatcher]="matcher">
                     <mat-hint></mat-hint>
                     <mat-error *ngIf="username.errors?.required">
                         Username is <strong>required</strong>.
                     </mat-error>
                     <mat-error *ngIf="username.errors?.maxlength">
-                        Username should be maximum {{ username.errors.maxlength.requiredLength }} charaters.
+                        Username should be maximum {{ username.errors.maxlength.requiredLength }} characters.
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -60,16 +58,16 @@
                     <mat-form-field class="register-full-width">
                         <input 
                             matInput 
-                            placeholder="Password"
-                            type="password"
-                            formControlName="password" 
+                            placeholder="Password" 
+                            type="password" 
+                            formControlName="password"
                             [errorStateMatcher]="matcher">
                         <mat-hint></mat-hint>
                         <mat-error *ngIf="password.errors?.required">
                             Password is <strong>required</strong>.
                         </mat-error>
                         <mat-error *ngIf="password.errors?.minlength">
-                            Password should be minimum {{ password.errors.minlength.requiredLength }} charaters.
+                            Password should be minimum {{ password.errors.minlength.requiredLength }} characters.
                         </mat-error>
                     </mat-form-field>
                 </div>
@@ -77,9 +75,9 @@
                     <mat-form-field class="register-full-width">
                         <input 
                             matInput 
-                            placeholder="Confirm Password"
-                            type="password"
-                            formControlName="confirmPassword" 
+                            placeholder="Confirm Password" 
+                            type="password" 
+                            formControlName="confirmPassword"
                             [errorStateMatcher]="matcher">
                         <mat-hint></mat-hint>
                         <mat-error *ngIf="confirmpassword.errors?.required">
@@ -92,12 +90,6 @@
                 </div>
             </div>
         </form>
-    </mat-card-content>
-    <mat-card-actions>
-        <button mat-flat-button color="primary"
-            [disabled]="!registerForm.valid" (click)="register()" 
-        >Register</button>
-    </mat-card-actions>
-</mat-card>
-
-
+        <button mat-flat-button color="primary" [disabled]="!registerForm.valid" (click)="register()">Register</button>
+    </mat-drawer-content>
+</mat-drawer-container>
