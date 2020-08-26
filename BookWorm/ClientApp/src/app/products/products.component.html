@@ -1,19 +1,11 @@
-<mat-drawer-container>
-    <mat-drawer mode="side" opened>
+<mat-sidenav-container class="container" >
+    <mat-sidenav mode="side" opened="true" class="sidenav">
         <product-filter [category]="category"></product-filter>
-    </mat-drawer>
-    <mat-drawer-content>
-        <div fxLayout="row wrap" fxLayoutAlign="start" fxLayoutGap="2%">
-            <div *ngFor="let p of filteredProducts" fxFlex="0 0 21%" fxFlex.sm="0 0 46%" fxFlex.xs="0 0 96%">
-                <product-card [product]="p"></product-card>
-            </div>
-        </div> 
-    </mat-drawer-content>
-</mat-drawer-container>
+    </mat-sidenav>
 
-
-
-
-
-
-
+    <mat-sidenav-content fxLayout="row wrap" fxLayoutAlign="center start" fxLayoutGap="10px">
+        <div *ngFor="let p of filteredProducts" fxFlex="20%" fxFlex.xs="95%" fxFlex.sm="45%" fxFlex.md="28%">
+            <product-card [product]="p"></product-card>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>
