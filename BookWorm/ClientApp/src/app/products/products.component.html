@@ -1,6 +1,9 @@
 <mat-sidenav-container class="container" >
     <mat-sidenav mode="side" opened="true" class="sidenav">
-        <product-filter [category]="category"></product-filter>
+        <button mat-mini-fab (click)="isExpanded = !isExpanded" color="primary" style="margin: 10px;">
+            <mat-icon aria-label="Menu">menu</mat-icon>
+        </button>
+        <product-filter *ngIf="isExpanded" [category]="category"></product-filter>
     </mat-sidenav>
 
     <mat-sidenav-content fxLayout="row wrap" fxLayoutAlign="center start" fxLayoutGap="10px">

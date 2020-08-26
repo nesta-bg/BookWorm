@@ -1,23 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { ProductService } from '../services/product.service';
 import { ActivatedRoute } from '@angular/router';
 import { Book } from '../models/Book';
-import { of, defer } from 'rxjs';
+import { of, defer, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { MediaChange, MediaObserver } from '@angular/flex-layout';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent {
+export class ProductsComponent implements AfterViewInit {
   products: Book[] = [];
   filteredProducts: Book[] = [];
   category: string;
+  isExpanded = true;
+  media$: Observable<MediaChange[]>;
 
   constructor(
     private route: ActivatedRoute,
-    private productService: ProductService) {
+    private productService: ProductService,
+    private media: MediaObserver) {
+
+    this.media$ = this.media.asObservable();
 
     this.productService.getAll()
       .pipe(
@@ -28,10 +34,10 @@ export class ProductsComponent {
               switchMap(params => {
                 this.category = params.get('category');
                 return defer(() =>
-                (Boolean(this.category) ?
-                  this.productService.getProductsByCategory(this.category) :
-                  of(this.products)
-                ));
+                  (Boolean(this.category) ?
+                    this.productService.getProductsByCategory(this.category) :
+                    of(this.products)
+                  ));
               })
             );
         })
@@ -43,6 +49,18 @@ export class ProductsComponent {
           console.log(err);
         }
       );
+  }
+
+  ngAfterViewInit() {
+    this.media$.subscribe(mq => {
+      mq.forEach(element => {
+        if (element.mqAlias === 'lt-lg')
+          this.isExpanded = false;
+
+        else if (element.mqAlias === 'gt-md')
+          this.isExpanded = true;
+      });
+    });
   }
 
 }
