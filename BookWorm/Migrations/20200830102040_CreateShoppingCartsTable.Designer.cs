@@ -4,14 +4,16 @@ using BookWorm.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BookWorm.Migrations
 {
     [DbContext(typeof(BookWormDbContext))]
-    partial class BookWormDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200830102040_CreateShoppingCartsTable")]
+    partial class CreateShoppingCartsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

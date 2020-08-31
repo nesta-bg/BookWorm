@@ -11,6 +11,8 @@ namespace BookWorm.Persistence
 
         public DbSet<AppUser> AppUsers { get; set; }
 
+        public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+
         public BookWormDbContext(DbContextOptions<BookWormDbContext> options)
             : base(options)
         { }
