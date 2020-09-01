@@ -13,6 +13,8 @@ namespace BookWorm.Persistence
 
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
 
+        public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
+
         public BookWormDbContext(DbContextOptions<BookWormDbContext> options)
             : base(options)
         { }
