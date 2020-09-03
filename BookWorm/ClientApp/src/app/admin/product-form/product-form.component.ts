@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { PriceValidators } from 'src/app/shared/price.validators';
 import { Router, ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators';
-import { Book } from 'src/app/models/Book';
+import { Product } from 'src/app/models/Product';
 
 @Component({
   selector: 'product-form',
@@ -57,7 +57,7 @@ export class ProductFormComponent implements OnInit {
     return this.productForm.get('imageUrl');
   }
 
-  editProduct(product: Book) {
+  editProduct(product: Product) {
     this.productForm.patchValue({
       title: product.title,
       price: product.price,

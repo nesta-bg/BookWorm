@@ -1,7 +1,7 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { ProductService } from '../services/product.service';
 import { ActivatedRoute } from '@angular/router';
-import { Book } from '../models/Book';
+import { Product } from '../models/Product';
 import { of, defer, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
@@ -12,8 +12,8 @@ import { MediaChange, MediaObserver } from '@angular/flex-layout';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements AfterViewInit {
-  products: Book[] = [];
-  filteredProducts: Book[] = [];
+  products: Product[] = [];
+  filteredProducts: Product[] = [];
   category: string;
   isExpanded = true;
   media$: Observable<MediaChange[]>;

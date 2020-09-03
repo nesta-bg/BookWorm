@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProductService } from 'src/app/services/product.service';
 import { MatTableDataSource } from '@angular/material/table';
-import { Book } from 'src/app/models/Book';
+import { Product } from 'src/app/models/Product';
 import { MatPaginator, MatSort } from '@angular/material';
 
 @Component({
@@ -11,7 +11,7 @@ import { MatPaginator, MatSort } from '@angular/material';
 })
 export class AdminProductsComponent implements OnInit {
   displayedColumns: string[] = ['title', 'price', 'action'];
-  products: MatTableDataSource<Book>;
+  products: MatTableDataSource<Product>;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;

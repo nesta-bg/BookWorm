@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Book, ShoppingCartItem } from '../models/Book';
+import { Product, ShoppingCartItem } from '../models/Product';
 
 @Injectable({
   providedIn: 'root'
@@ -41,7 +41,7 @@ export class ShoppingCartService {
     return this.http.post(this.urlCartItems, item);
   }
 
-  async addToCart(product: Book) {
+  async addToCart(product: Product) {
     let cartId = Number(await this.getOrCreateCartId());
     let isThereItem = await this.isThereShoppingCartItem(product.id, cartId).toPromise();
 
