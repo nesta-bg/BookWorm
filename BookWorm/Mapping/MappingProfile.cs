@@ -11,9 +11,11 @@ namespace BookWorm.Mapping
             CreateMap<AppUserResource, AppUser>();
             CreateMap<BookResource, Book>()
                 .ForMember(b => b.Id, opt => opt.Ignore());
-            
+            CreateMap<ShoppingCartItemResource, ShoppingCartItem>();
+
             CreateMap<Category, CategoryResource>();
             CreateMap<Book, BookResource>();
+            CreateMap<ShoppingCartItem, ShoppingCartItemResource>();
         }
     }
 }

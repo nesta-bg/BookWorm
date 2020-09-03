@@ -34,7 +34,7 @@ namespace BookWorm.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetBook(int id)
         {
-            var book = await context.Books.SingleAsync(b => b.Id == id);
+            var book = await context.Books.SingleOrDefaultAsync(b => b.Id == id);
 
             if (book == null)
                 return NotFound();
