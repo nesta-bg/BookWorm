@@ -1,17 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Book } from '../models/Book';
+import { Book, ShoppingCartItem } from '../models/Book';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShoppingCartService {
-  private url = 'https://localhost:44390/api/shoppingcarts';
+  private urlCarts = 'https://localhost:44390/api/shoppingcarts';
+  private urlCartItems = 'https://localhost:44390/api/shoppingcartitems';
 
   constructor(private http: HttpClient) { }
 
   private create() {
-    return this.http.post(this.url, {});
+    return this.http.post(this.urlCarts, {});
   }
 
   private async getOrCreateCartId() {
@@ -24,9 +25,35 @@ export class ShoppingCartService {
     return result.toString();
   }
 
-  async addToCart(product: Book) {
-    let cartId = await this.getOrCreateCartId();
-    console.log(cartId);
+  private isThereShoppingCartItem(bookId: number, shoppingCartId: number) {
+    return this.http.get(this.urlCartItems + '/item/' + bookId + '/' + shoppingCartId);
   }
+
+  private getShoppingCartItem(bookId: number, shoppingCartId: number) {
+    return this.http.get<ShoppingCartItem>(this.urlCartItems + '/' + bookId + '/' + shoppingCartId);
+  }
+
+  private updateShoppingCartItem(bookId: number, shoppingCartId: number, item: ShoppingCartItem) {
+    return this.http.put(this.urlCartItems + '/' + bookId + '/' + shoppingCartId, item);
+  }
+
+  private createShoppingCartItem(item: ShoppingCartItem) {
+    return this.http.post(this.urlCartItems, item);
+  }
+
+  async addToCart(product: Book) {
+    let cartId = Number(await this.getOrCreateCartId());
+    let isThereItem = await this.isThereShoppingCartItem(product.id, cartId).toPromise();
+
+    if (isThereItem) {
+      let item = await this.getShoppingCartItem(product.id, cartId).toPromise();
+      item.quantity += 1;
+      await this.updateShoppingCartItem(product.id, cartId, item).toPromise();
+    } else {
+      let newItem = { id: 0, quantity: 1, bookId: product.id, shoppingCartId: cartId };
+      await this.createShoppingCartItem(newItem).toPromise();
+    }
+  }
+
 }
 
