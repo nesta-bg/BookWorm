@@ -1,27 +1,30 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, OnInit } from '@angular/core';
 import { ProductService } from '../services/product.service';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../models/Product';
 import { of, defer, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
+import { ShoppingCartService } from '../services/shopping-cart.service';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent implements AfterViewInit {
+export class ProductsComponent implements AfterViewInit, OnInit {
   products: Product[] = [];
   filteredProducts: Product[] = [];
   category: string;
   isExpanded = true;
   media$: Observable<MediaChange[]>;
+  cart: any;
 
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
-    private media: MediaObserver) {
+    private media: MediaObserver,
+    private shoppingCartService: ShoppingCartService) {
 
     this.media$ = this.media.asObservable();
 
@@ -49,6 +52,21 @@ export class ProductsComponent implements AfterViewInit {
           console.log(err);
         }
       );
+  }
+
+  async ngOnInit() {
+    let res = this.shoppingCartService.getShoppingCart();
+
+    if (res != null)
+      res.subscribe(cart => this.cart = cart);
+
+    this.shoppingCartService.reloadCart
+      .pipe(
+        switchMap(status => {
+          if (status)
+            return this.shoppingCartService.getShoppingCart();
+        })
+      ).subscribe(cart => this.cart = cart);
   }
 
   ngAfterViewInit() {

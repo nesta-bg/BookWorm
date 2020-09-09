@@ -8,7 +8,7 @@
 
     <mat-sidenav-content fxLayout="row wrap" fxLayoutAlign="center start" fxLayoutGap="10px">
         <div *ngFor="let p of filteredProducts" fxFlex="20%" fxFlex.xs="95%" fxFlex.sm="45%" fxFlex.md="28%">
-            <product-card [product]="p"></product-card>
+            <product-card [product]="p" [shopping-cart]="cart"></product-card>
         </div>
     </mat-sidenav-content>
 </mat-sidenav-container>

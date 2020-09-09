@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Product, ShoppingCartItem } from '../models/Product';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,13 +10,15 @@ export class ShoppingCartService {
   private urlCarts = 'https://localhost:44390/api/shoppingcarts';
   private urlCartItems = 'https://localhost:44390/api/shoppingcartitems';
 
+  reloadCart: Subject<boolean> = new Subject();
+
   constructor(private http: HttpClient) { }
 
   private create() {
     return this.http.post(this.urlCarts, {});
   }
 
-  private async getOrCreateCartId() {
+  private async getOrCreateCartId(): Promise<string> {
     let cartId = localStorage.getItem('cartId');
 
     if (cartId) return cartId;
@@ -53,7 +56,16 @@ export class ShoppingCartService {
       let newItem = { id: 0, quantity: 1, bookId: product.id, shoppingCartId: cartId };
       await this.createShoppingCartItem(newItem).toPromise();
     }
+
+    this.reloadCart.next(true);
+  }
+
+  getShoppingCart() {
+    let cartId = localStorage.getItem('cartId');
+
+    if (!cartId) return null;
+
+    return this.http.get(this.urlCarts + '/' + cartId);
   }
 
 }
-
