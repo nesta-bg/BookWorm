@@ -6,3 +6,11 @@
 button {
     width: 100%;
 }
+
+.quantity {
+    border: 1px solid lightgray;
+}
+
+.cart {
+    text-align: center;
+}
