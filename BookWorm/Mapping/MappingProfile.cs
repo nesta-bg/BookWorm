@@ -15,6 +15,13 @@ namespace BookWorm.Mapping
 
             CreateMap<Category, CategoryResource>();
             CreateMap<Book, BookResource>();
+            CreateMap<ShoppingCart, ShoppingCartResource>();
+
+            // if corresponding property in source object does not have the same name - ShoppingCartItems, it won't work automatically.
+            //CreateMap<ShoppingCart, ShoppingCartResource>()
+            //    .ForMember(
+            //        dst => dst.ShoppingCartItemResources,
+            //        opts => opts.MapFrom(src => src.ShoppingCartItems));
             CreateMap<ShoppingCartItem, ShoppingCartItemResource>();
         }
     }

@@ -1,4 +1,6 @@
-﻿using BookWorm.Models;
+﻿using AutoMapper;
+using BookWorm.Controllers.Resources;
+using BookWorm.Models;
 using BookWorm.Persistence;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,10 +13,24 @@ namespace BookWorm.Controllers
     public class ShoppingCartsController : Controller
     {
         private readonly BookWormDbContext context;
+        private readonly IMapper mapper;
 
-        public ShoppingCartsController(BookWormDbContext context)
+        public ShoppingCartsController(BookWormDbContext context, IMapper mapper)
         {
             this.context = context;
+            this.mapper = mapper;
+        }
+
+        [HttpGet("{shoppingCartId}")]
+        public async Task<IActionResult> GetShoppingCart(int shoppingCartId)
+        {
+            var shoppingCart = await context.ShoppingCarts.Include(c => c.ShoppingCartItems).SingleOrDefaultAsync(c => c.Id == shoppingCartId);
+
+            if (shoppingCart == null)
+                return NotFound("There is no shoppingCart for specified query.");
+
+            var shoppingCartResource = mapper.Map<ShoppingCart, ShoppingCartResource>(shoppingCart);
+            return Ok(shoppingCartResource);
         }
 
         [HttpPost]
