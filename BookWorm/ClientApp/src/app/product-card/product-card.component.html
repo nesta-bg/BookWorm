@@ -10,19 +10,25 @@
         <button
             *ngIf="getQuantity() === 0; else updateQuantity"  
             mat-stroked-button color="primary" 
-            (click)="addToCart(product)">ADD TO CART
+            (click)="addToCart()">ADD TO CART
         </button>
         <ng-template #updateQuantity>
             <div class="quantity">
                 <div fxLayout="row" fxLayoutAlign="start center">
                     <div fxFlex="auto">
-                        <button mat-raised-button color="primary">-</button>
+                        <button
+                            (click)="removeFromCart()" 
+                            mat-raised-button color="primary">-
+                        </button>
                     </div>
                     <div fxFlex="auto" class="cart">
                         {{ getQuantity() }} in cart
                     </div>
                     <div fxFlex="auto">
-                        <button mat-raised-button color="primary">+</button>
+                        <button
+                            (click)="addToCart()" 
+                            mat-raised-button color="primary">+
+                        </button>
                     </div>
                 </div>
             </div> 

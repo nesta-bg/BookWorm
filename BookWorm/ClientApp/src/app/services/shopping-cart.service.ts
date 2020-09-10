@@ -44,18 +44,38 @@ export class ShoppingCartService {
     return this.http.post(this.urlCartItems, item);
   }
 
+  private deleteShoppingCartItem(bookId: number, shoppingCartId: number) {
+    return this.http.delete(this.urlCartItems + '/' + bookId + '/' + shoppingCartId);
+  }
+
   async addToCart(product: Product) {
     let cartId = Number(await this.getOrCreateCartId());
     let isThereItem = await this.isThereShoppingCartItem(product.id, cartId).toPromise();
 
     if (isThereItem) {
-      let item = await this.getShoppingCartItem(product.id, cartId).toPromise();
-      item.quantity += 1;
-      await this.updateShoppingCartItem(product.id, cartId, item).toPromise();
+      this.updateItemQuantity(product, 1);
     } else {
       let newItem = { id: 0, quantity: 1, bookId: product.id, shoppingCartId: cartId };
       await this.createShoppingCartItem(newItem).toPromise();
+      this.reloadCart.next(true);
     }
+  }
+
+  async removeFromCart(product: Product) {
+    this.updateItemQuantity(product, -1);
+  }
+
+  private async updateItemQuantity(product: Product, change: number) {
+    let cartId = Number(localStorage.getItem('cartId'));
+
+    let item = await this.getShoppingCartItem(product.id, cartId).toPromise();
+    item.quantity += change;
+
+    if (item.quantity === 0)
+      await this.deleteShoppingCartItem(product.id, cartId).toPromise();
+
+    else
+      await this.updateShoppingCartItem(product.id, cartId, item).toPromise();
 
     this.reloadCart.next(true);
   }

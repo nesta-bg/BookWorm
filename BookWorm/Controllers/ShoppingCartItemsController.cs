@@ -76,6 +76,20 @@ namespace BookWorm.Controllers
 
             return Ok(mapper.Map<ShoppingCartItem, ShoppingCartItemResource>(shoppingCartItem));
         }
+
+        [HttpDelete("{bookId}/{shoppingCartId}")]
+        public async Task<IActionResult> DeleteShoppingCartItem(int bookId, int shoppingCartId)
+        {
+            var shoppingCartItem = await context.ShoppingCartItems.SingleOrDefaultAsync(ci => ci.BookId == bookId && ci.ShoppingCartId == shoppingCartId);
+
+            if (shoppingCartItem == null)
+                return NotFound();
+
+            context.ShoppingCartItems.Remove(shoppingCartItem);
+            context.SaveChanges();
+
+            return Ok(shoppingCartItem.ShoppingCartId);
+        }
     }
 }
 
