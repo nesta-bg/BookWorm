@@ -8,7 +8,9 @@
                     <a href="#">Link</a>
                 </li>
                 <li>
-                    <a routerLink="/shopping-cart">Shopping cart</a>
+                    <a routerLink="/shopping-cart">
+                        <mat-icon matBadge="{{ shoppingCartItemCount }}" matBadgeColor="accent">shopping_cart</mat-icon>
+                    </a>
                 </li>
             </ul>
         </div>

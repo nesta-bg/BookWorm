@@ -10,7 +10,8 @@ import {
   MatSelectModule,
   MatTableModule,
   MatPaginatorModule,
-  MatSortModule} from '@angular/material';
+  MatSortModule,
+  MatBadgeModule} from '@angular/material';
 
 const MaterialComponents = [
   MatToolbarModule,
@@ -23,7 +24,8 @@ const MaterialComponents = [
   MatSelectModule,
   MatTableModule,
   MatPaginatorModule,
-  MatSortModule
+  MatSortModule,
+  MatBadgeModule
 ];
 
 @NgModule({

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Product, ShoppingCartItem } from '../models/Product';
-import { Subject } from 'rxjs';
+import { Product, ShoppingCartItem, ShoppingCart } from '../models/Product';
+import { Subject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -80,12 +80,12 @@ export class ShoppingCartService {
     this.reloadCart.next(true);
   }
 
-  getShoppingCart() {
+  getShoppingCart(): Observable<ShoppingCart> {
     let cartId = localStorage.getItem('cartId');
 
     if (!cartId) return null;
 
-    return this.http.get(this.urlCarts + '/' + cartId);
+    return this.http.get<ShoppingCart>(this.urlCarts + '/' + cartId);
   }
 
 }
