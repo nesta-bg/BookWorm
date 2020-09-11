@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Product, ShoppingCartItem, ShoppingCart } from '../models/Product';
+import { Product, ShoppingCartItem } from '../models/Product';
+import { ShoppingCart } from '../models/ShoppingCart';
 import { Subject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -85,7 +87,8 @@ export class ShoppingCartService {
 
     if (!cartId) return null;
 
-    return this.http.get<ShoppingCart>(this.urlCarts + '/' + cartId);
+    return this.http.get<ShoppingCart>(this.urlCarts + '/' + cartId)
+      .pipe(map(x => new ShoppingCart(x.shoppingCartItems)));
   }
 
 }

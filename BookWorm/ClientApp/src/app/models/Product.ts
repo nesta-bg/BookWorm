@@ -12,12 +12,6 @@ export interface Category {
     displayName: string;
 }
 
-export interface ShoppingCart {
-    id: number;
-    dateCreated: string;
-    shoppingCartItems: ShoppingCartItem[];
-}
-
 export interface ShoppingCartItem {
     id: number;
     quantity: number;

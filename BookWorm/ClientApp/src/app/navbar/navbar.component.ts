@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 import { ShoppingCartService } from '../services/shopping-cart.service';
-import { ShoppingCart } from '../models/Product';
-import { switchMap } from 'rxjs/operators';
+import { ShoppingCart } from '../models/ShoppingCart';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'navbar',
@@ -13,7 +13,7 @@ import { switchMap } from 'rxjs/operators';
 export class NavbarComponent implements OnInit {
   user;
   shoppingCartItemCount: number;
-  cart: ShoppingCart;
+  cart: Observable<ShoppingCart>;
 
   constructor(
     private userService: UserService,
@@ -29,34 +29,20 @@ export class NavbarComponent implements OnInit {
       }
     });
 
-    this.shoppingCartService.getShoppingCart()
-      .subscribe(cart => {
-        this.cart = cart;
-        this.getShoppingCartItemCount(this.cart);
-      });
+    this.cart = this.shoppingCartService.getShoppingCart();
 
-    this.shoppingCartService.reloadCart
-      .pipe(
-        switchMap(status => {
-          if (status)
-            return this.shoppingCartService.getShoppingCart();
-        })
-      ).subscribe(cart => {
-        this.cart = cart;
-        this.getShoppingCartItemCount(this.cart);
-      });
-}
+    this.shoppingCartService.reloadCart.subscribe(status => {
+      if (status) {
+        this.cart = this.shoppingCartService.getShoppingCart();
+      }
+    });
+
+  }
 
   logout() {
     localStorage.removeItem('token');
     this.user = null;
     this.router.navigate(['/']);
-  }
-
-  private getShoppingCartItemCount(shoppingCart: ShoppingCart) {
-    this.shoppingCartItemCount = 0;
-    for (let id in shoppingCart.shoppingCartItems)
-      this.shoppingCartItemCount += shoppingCart.shoppingCartItems[id].quantity;
   }
 
 }

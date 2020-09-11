@@ -9,7 +9,7 @@
                 </li>
                 <li>
                     <a routerLink="/shopping-cart">
-                        <mat-icon matBadge="{{ shoppingCartItemCount }}" matBadgeColor="accent">shopping_cart</mat-icon>
+                        <mat-icon *ngIf="cart | async as cart" matBadge="{{ cart.totalItemsCount }}" matBadgeColor="accent">shopping_cart</mat-icon>
                     </a>
                 </li>
             </ul>
@@ -52,3 +52,4 @@
         </div>
     </mat-toolbar-row>
 </mat-toolbar>
+
