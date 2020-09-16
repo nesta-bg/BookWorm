@@ -24,7 +24,10 @@ namespace BookWorm.Controllers
         [HttpGet("{shoppingCartId}")]
         public async Task<IActionResult> GetShoppingCart(int shoppingCartId)
         {
-            var shoppingCart = await context.ShoppingCarts.Include(c => c.ShoppingCartItems).SingleOrDefaultAsync(c => c.Id == shoppingCartId);
+            var shoppingCart = await context.ShoppingCarts
+                .Include(c => c.ShoppingCartItems)
+                .ThenInclude(i => i.Book)
+                .SingleOrDefaultAsync(c => c.Id == shoppingCartId);
 
             if (shoppingCart == null)
                 return NotFound("There is no shoppingCart for specified query.");

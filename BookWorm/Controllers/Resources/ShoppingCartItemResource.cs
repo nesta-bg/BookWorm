@@ -8,6 +8,8 @@
 
         public int BookId { get; set; }
 
+        public BookResource Book { get; set; }
+
         public int ShoppingCartId { get; set; }
     }
 }
