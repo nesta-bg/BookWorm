@@ -2,3 +2,7 @@ table {
     min-width: 800px;
     margin-bottom: 80px;
 }
+
+tr.mat-footer-row {
+    font-weight: bold;
+}
