@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Product, ShoppingCartItem } from '../models/Product';
+import { Product } from '../models/Product';
+import { ShoppingCartItem } from '../models/ShoppingCartItem';
 import { ShoppingCart } from '../models/ShoppingCart';
 import { Subject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -42,7 +43,7 @@ export class ShoppingCartService {
     return this.http.put(this.urlCartItems + '/' + bookId + '/' + shoppingCartId, item);
   }
 
-  private createShoppingCartItem(item: ShoppingCartItem) {
+  private createShoppingCartItem(item) {
     return this.http.post(this.urlCartItems, item);
   }
 

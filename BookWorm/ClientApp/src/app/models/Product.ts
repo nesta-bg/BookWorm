@@ -11,10 +11,3 @@ export interface Category {
     valueName: string;
     displayName: string;
 }
-
-export interface ShoppingCartItem {
-    id: number;
-    quantity: number;
-    bookId: number;
-    shoppingCartId: number;
-}

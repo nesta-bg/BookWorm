@@ -8,7 +8,7 @@ import { ShoppingCartService } from '../services/shopping-cart.service';
 })
 export class ShoppingCartComponent implements OnInit {
   cart;
-  displayedColumns: string[] = ['id', 'title', 'quantity', 'price'];
+  displayedColumns: string[] = ['title', 'quantity', 'unitPrice', 'totalPrice'];
 
   constructor(private shoppingCartService: ShoppingCartService) { }
 
