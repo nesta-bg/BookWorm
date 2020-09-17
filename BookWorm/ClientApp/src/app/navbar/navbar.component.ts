@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
 import { ShoppingCartService } from '../services/shopping-cart.service';
-import { ShoppingCart } from '../models/ShoppingCart';
+import { ShoppingCart } from '../models/shopping-cart';
 import { Observable } from 'rxjs';
 
 @Component({

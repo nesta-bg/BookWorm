@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { PriceValidators } from 'src/app/shared/price.validators';
 import { Router, ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators';
-import { Product } from 'src/app/models/Product';
+import { Product } from 'src/app/models/product';
 
 @Component({
   selector: 'product-form',
