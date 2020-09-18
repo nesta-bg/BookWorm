@@ -1,3 +1,4 @@
+import { Product } from './product';
 import { ShoppingCartItem } from './shopping-cart-item';
 
 
@@ -12,6 +13,16 @@ export class ShoppingCart {
       this.shoppingCartItems.push(new ShoppingCartItem(item.book, item.quantity));
     }
 
+  }
+
+  getQuantity(product: Product) {
+    let item;
+
+    for (let productId in this.itemsMap) {
+      if (this.itemsMap[productId].book.id === product.id)
+        item = this.itemsMap[productId];
+    }
+    return item ? item.quantity : 0;
   }
 
   get totalPrice() {

@@ -6,32 +6,15 @@
     <mat-card-content>
         <p>{{ product.price | currency }}</p>
     </mat-card-content>
-    <mat-card-actions *ngIf="showActions">
+    <mat-card-actions *ngIf="showActions && shoppingCart">
         <button
-            *ngIf="getQuantity() === 0; else updateQuantity"  
+            *ngIf="shoppingCart.getQuantity(product) === 0; else updateQuantity"  
             mat-stroked-button color="primary" 
             (click)="addToCart()">ADD TO CART
         </button>
         <ng-template #updateQuantity>
-            <div class="quantity">
-                <div fxLayout="row" fxLayoutAlign="start center">
-                    <div fxFlex="auto">
-                        <button
-                            (click)="removeFromCart()" 
-                            mat-raised-button color="primary">-
-                        </button>
-                    </div>
-                    <div fxFlex="auto" class="cart">
-                        {{ getQuantity() }} in cart
-                    </div>
-                    <div fxFlex="auto">
-                        <button
-                            (click)="addToCart()" 
-                            mat-raised-button color="primary">+
-                        </button>
-                    </div>
-                </div>
-            </div> 
+            <product-quantity [product]="product" [shopping-cart]="shoppingCart">
+            </product-quantity>
         </ng-template>
     </mat-card-actions>
 </mat-card>
