@@ -3,6 +3,10 @@ table {
     margin-bottom: 80px;
 }
 
+.mat-column-totalPrice {
+    padding-left: 15px;
+}
+
 tr.mat-footer-row {
     font-weight: bold;
 }

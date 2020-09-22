@@ -1,8 +1,7 @@
 <mat-drawer-container fxLayout="row" fxLayoutAlign="center center">
   <mat-drawer-content>
-    <h1>Shopping Cart</h1>
-
     <ng-container *ngIf="cart | async as cart">
+      <h1>Shopping Cart</h1>
       <p>
         You have {{ cart.totalItemsCount }} items in your shopping cart.
       </p>
@@ -15,15 +14,18 @@
           <td mat-footer-cell *matFooterCellDef> Total </td>
         </ng-container>
 
-        <ng-container matColumnDef="quantity">
-          <th mat-header-cell *matHeaderCellDef> Quantity </th>
-          <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
-          <td mat-footer-cell *matFooterCellDef></td>
-        </ng-container>
-
         <ng-container matColumnDef="unitPrice">
           <th mat-header-cell *matHeaderCellDef> Unit Price </th>
           <td mat-cell *matCellDef="let element"> {{element.book.price | currency}} </td>
+          <td mat-footer-cell *matFooterCellDef></td>
+        </ng-container>
+
+        <ng-container matColumnDef="quantity">
+          <th mat-header-cell *matHeaderCellDef> Quantity </th>
+          <td mat-cell *matCellDef="let element">
+            <product-quantity [product]="element.book" [shopping-cart]="cart">
+            </product-quantity>
+          </td>
           <td mat-footer-cell *matFooterCellDef></td>
         </ng-container>
 
