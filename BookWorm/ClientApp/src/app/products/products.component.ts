@@ -55,16 +55,17 @@ export class ProductsComponent implements AfterViewInit, OnInit {
   }
 
   async ngOnInit() {
-    let res = this.shoppingCartService.getShoppingCart();
-
-    if (res != null)
-      res.subscribe(cart => this.cart = cart);
+    (await this.shoppingCartService.getShoppingCart())
+      .subscribe(cart => {
+        this.cart = cart;
+        this.shoppingCartService.reloadCart.next(true);
+      });
 
     this.shoppingCartService.reloadCart
       .pipe(
-        switchMap(status => {
+        switchMap(async status => {
           if (status)
-            return this.shoppingCartService.getShoppingCart();
+            return (await this.shoppingCartService.getShoppingCart()).toPromise();
         })
       ).subscribe(cart => this.cart = cart);
   }

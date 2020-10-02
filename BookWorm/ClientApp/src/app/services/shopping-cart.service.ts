@@ -17,13 +17,12 @@ export class ShoppingCartService {
 
   constructor(private http: HttpClient) { }
 
-  getShoppingCart(): Observable<ShoppingCart> {
-    let cartId = localStorage.getItem('cartId');
-
-    if (!cartId) return null;
+  async getShoppingCart(): Promise<Observable<ShoppingCart>> {
+    let cartId = await this.getOrCreateCartId();
 
     return this.http.get<ShoppingCart>(this.urlCarts + '/' + cartId)
-      .pipe(map(x => new ShoppingCart(x.shoppingCartItems)));
+      .pipe(map(x => new ShoppingCart(x.shoppingCartItems)
+      ));
   }
 
   clearShoppingCart() {
@@ -34,7 +33,7 @@ export class ShoppingCartService {
   }
 
   async addToCart(product: Product) {
-    let cartId = Number(await this.getOrCreateCartId());
+    let cartId = Number(localStorage.getItem('cartId'));
     let isThereItem = await this.isThereShoppingCartItem(product.id, cartId).toPromise();
 
     if (isThereItem) {

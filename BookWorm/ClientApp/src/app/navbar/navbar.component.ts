@@ -29,14 +29,11 @@ export class NavbarComponent implements OnInit {
       }
     });
 
-    this.cart = this.shoppingCartService.getShoppingCart();
-
-    this.shoppingCartService.reloadCart.subscribe(status => {
+    this.shoppingCartService.reloadCart.subscribe(async status => {
       if (status) {
-        this.cart = this.shoppingCartService.getShoppingCart();
+        this.cart = await this.shoppingCartService.getShoppingCart();
       }
     });
-
   }
 
   logout() {

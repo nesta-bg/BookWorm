@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';
+import { ShoppingCart } from '../models/shopping-cart';
 import { ShoppingCartService } from '../services/shopping-cart.service';
 
 @Component({
@@ -8,7 +10,7 @@ import { ShoppingCartService } from '../services/shopping-cart.service';
   styleUrls: ['./shopping-cart.component.css']
 })
 export class ShoppingCartComponent implements OnInit {
-  cart;
+  cart: Observable<ShoppingCart>;
   displayedColumns: string[] = ['title', 'unitPrice', 'quantity', 'totalPrice'];
 
   constructor(
@@ -16,16 +18,14 @@ export class ShoppingCartComponent implements OnInit {
     private toastr: ToastrService) { }
 
   async ngOnInit() {
-    this.cart = this.shoppingCartService.getShoppingCart();
+    this.cart = await this.shoppingCartService.getShoppingCart();
 
-    this.shoppingCartService.reloadCart
-      .subscribe(
-        status => {
-          if (status) {
-            this.cart = this.shoppingCartService.getShoppingCart();
-          }
-        }
-      );
+    this.shoppingCartService.reloadCart.subscribe(async status => {
+      if (status) {
+        this.cart = await this.shoppingCartService.getShoppingCart();
+      }
+    });
+
   }
 
   clearCart() {
