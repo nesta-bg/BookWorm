@@ -40,6 +40,10 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
       </table>
+      <button
+        (click)="clearCart()" 
+        color="warn" mat-raised-button>Clear Shopping Cart
+      </button>
     </ng-container>
   </mat-drawer-content>
 </mat-drawer-container>

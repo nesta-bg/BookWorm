@@ -17,6 +17,39 @@ export class ShoppingCartService {
 
   constructor(private http: HttpClient) { }
 
+  getShoppingCart(): Observable<ShoppingCart> {
+    let cartId = localStorage.getItem('cartId');
+
+    if (!cartId) return null;
+
+    return this.http.get<ShoppingCart>(this.urlCarts + '/' + cartId)
+      .pipe(map(x => new ShoppingCart(x.shoppingCartItems)));
+  }
+
+  clearShoppingCart() {
+    let cartId = localStorage.getItem('cartId');
+
+    if (cartId)
+      return this.http.delete(this.urlCartItems + '/' + cartId);
+  }
+
+  async addToCart(product: Product) {
+    let cartId = Number(await this.getOrCreateCartId());
+    let isThereItem = await this.isThereShoppingCartItem(product.id, cartId).toPromise();
+
+    if (isThereItem) {
+      this.updateItemQuantity(product, 1);
+    } else {
+      let newItem = { id: 0, quantity: 1, bookId: product.id, shoppingCartId: cartId };
+      await this.createShoppingCartItem(newItem).toPromise();
+      this.reloadCart.next(true);
+    }
+  }
+
+  async removeFromCart(product: Product) {
+    this.updateItemQuantity(product, -1);
+  }
+
   private create() {
     return this.http.post(this.urlCarts, {});
   }
@@ -27,6 +60,7 @@ export class ShoppingCartService {
     if (cartId) return cartId;
 
     let result = await this.create().toPromise();
+
     localStorage.setItem('cartId', result.toString());
     return result.toString();
   }
@@ -51,23 +85,6 @@ export class ShoppingCartService {
     return this.http.delete(this.urlCartItems + '/' + bookId + '/' + shoppingCartId);
   }
 
-  async addToCart(product: Product) {
-    let cartId = Number(await this.getOrCreateCartId());
-    let isThereItem = await this.isThereShoppingCartItem(product.id, cartId).toPromise();
-
-    if (isThereItem) {
-      this.updateItemQuantity(product, 1);
-    } else {
-      let newItem = { id: 0, quantity: 1, bookId: product.id, shoppingCartId: cartId };
-      await this.createShoppingCartItem(newItem).toPromise();
-      this.reloadCart.next(true);
-    }
-  }
-
-  async removeFromCart(product: Product) {
-    this.updateItemQuantity(product, -1);
-  }
-
   private async updateItemQuantity(product: Product, change: number) {
     let cartId = Number(localStorage.getItem('cartId'));
 
@@ -82,14 +99,4 @@ export class ShoppingCartService {
 
     this.reloadCart.next(true);
   }
-
-  getShoppingCart(): Observable<ShoppingCart> {
-    let cartId = localStorage.getItem('cartId');
-
-    if (!cartId) return null;
-
-    return this.http.get<ShoppingCart>(this.urlCarts + '/' + cartId)
-      .pipe(map(x => new ShoppingCart(x.shoppingCartItems)));
-  }
-
 }

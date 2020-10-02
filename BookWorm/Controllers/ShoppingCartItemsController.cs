@@ -4,6 +4,7 @@ using BookWorm.Models;
 using BookWorm.Persistence;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BookWorm.Controllers
@@ -72,7 +73,7 @@ namespace BookWorm.Controllers
                 return NotFound();
 
             mapper.Map(shoppingCartItemResource, shoppingCartItem);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
 
             return Ok(mapper.Map<ShoppingCartItem, ShoppingCartItemResource>(shoppingCartItem));
         }
@@ -86,9 +87,28 @@ namespace BookWorm.Controllers
                 return NotFound();
 
             context.ShoppingCartItems.Remove(shoppingCartItem);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
 
             return Ok(shoppingCartItem.ShoppingCartId);
+        }
+
+        [HttpDelete("{shoppingCartId}")]
+        public async Task<IActionResult> DeleteAllShoppingCartItems(int shoppingCartId)
+        {
+            var shoppingCartItems = await context.ShoppingCartItems.Where(a => a.ShoppingCartId == shoppingCartId).ToListAsync();
+
+            if (shoppingCartItems.Count == 0)
+                return NotFound();
+
+            foreach (var item in shoppingCartItems)
+            {
+                context.ShoppingCartItems.Remove(item);
+
+            }
+
+            await context.SaveChangesAsync();
+
+            return Ok(shoppingCartId);
         }
     }
 }
