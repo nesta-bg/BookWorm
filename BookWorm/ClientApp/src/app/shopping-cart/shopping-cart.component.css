@@ -6,6 +6,10 @@ mat-drawer-content {
     margin-bottom: 80px;
 }
 
+th.mat-header-cell {
+    font-weight: bold;
+}
+
 .mat-column-totalPrice {
     padding-left: 15px;
 }
@@ -16,4 +20,12 @@ tr.mat-footer-row {
 
 button {
     margin-top: 10px;
+}
+
+.thumbnail {
+    width: 80px;
+    height: 80px;
+    border-radius: 100%;
+    background-size: cover;
+    margin: 5px;
 }

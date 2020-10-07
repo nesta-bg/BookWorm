@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SecurityContext } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { ShoppingCart } from '../models/shopping-cart';
 import { ShoppingCartService } from '../services/shopping-cart.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -11,11 +12,12 @@ import { ShoppingCartService } from '../services/shopping-cart.service';
 })
 export class ShoppingCartComponent implements OnInit {
   cart: Observable<ShoppingCart>;
-  displayedColumns: string[] = ['title', 'unitPrice', 'quantity', 'totalPrice'];
+  displayedColumns: string[] = ['image', 'product', 'unitPrice', 'quantity', 'totalPrice'];
 
   constructor(
     private shoppingCartService: ShoppingCartService,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService,
+    private sanitizer: DomSanitizer) { }
 
   async ngOnInit() {
     this.cart = await this.shoppingCartService.getShoppingCart();
@@ -40,6 +42,11 @@ export class ShoppingCartComponent implements OnInit {
           console.log(err);
         }
       );
+  }
+
+  getBackground(imageUrl: string) {
+    let image = imageUrl.replace(/\\/g, '/');
+    return this.sanitizer.sanitize(SecurityContext.STYLE, 'url(' + window.location.origin + image + ')');
   }
 
 }
