@@ -1,13 +1,12 @@
 import { Product } from './product';
 import { ShoppingCartItem } from './shopping-cart-item';
 
-
 export class ShoppingCart {
   id: number;
   dateCreated: string;
   shoppingCartItems: ShoppingCartItem[] = [];
 
-  constructor(public itemsMap: { [productId: number]: ShoppingCartItem }) {
+  constructor(private itemsMap: { [productId: number]: ShoppingCartItem }) {
     this.itemsMap = itemsMap || {};
 
     for (let productId in itemsMap) {

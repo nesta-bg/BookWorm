@@ -6,6 +6,7 @@ import { of, defer, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { ShoppingCartService } from '../services/shopping-cart.service';
+import { ShoppingCart } from '../models/shopping-cart';
 
 @Component({
   selector: 'app-products',
@@ -18,48 +19,19 @@ export class ProductsComponent implements AfterViewInit, OnInit {
   category: string;
   isExpanded = true;
   media$: Observable<MediaChange[]>;
-  cart: any;
+  cart: ShoppingCart;
 
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
     private media: MediaObserver,
     private shoppingCartService: ShoppingCartService) {
-
-    this.media$ = this.media.asObservable();
-
-    this.productService.getAll()
-      .pipe(
-        switchMap(products => {
-          this.products = products;
-          return this.route.queryParamMap
-            .pipe(
-              switchMap(params => {
-                this.category = params.get('category');
-                return defer(() =>
-                  (Boolean(this.category) ?
-                    this.productService.getProductsByCategory(this.category) :
-                    of(this.products)
-                  ));
-              })
-            );
-        })
-      )
-      .subscribe((filteredProducts) => {
-        this.filteredProducts = filteredProducts;
-      },
-        err => {
-          console.log(err);
-        }
-      );
   }
 
   async ngOnInit() {
-    (await this.shoppingCartService.getShoppingCart())
-      .subscribe(cart => {
-        this.cart = cart;
-        this.shoppingCartService.reloadCart.next(true);
-      });
+    this.media$ = this.media.asObservable();
+    this.populateProducts();
+    this.getShoppingCart();
 
     this.shoppingCartService.reloadCart
       .pipe(
@@ -68,6 +40,41 @@ export class ProductsComponent implements AfterViewInit, OnInit {
             return (await this.shoppingCartService.getShoppingCart()).toPromise();
         })
       ).subscribe(cart => this.cart = cart);
+  }
+
+  private populateProducts() {
+    this.productService.getAll()
+    .pipe(
+      switchMap(products => {
+        this.products = products;
+        return this.route.queryParamMap
+          .pipe(
+            switchMap(params => {
+              this.category = params.get('category');
+              return defer(() =>
+                (Boolean(this.category) ?
+                  this.productService.getProductsByCategory(this.category) :
+                  of(this.products)
+                ));
+            })
+          );
+      })
+    )
+    .subscribe((filteredProducts) => {
+      this.filteredProducts = filteredProducts;
+    },
+      err => {
+        console.log(err);
+      }
+    );
+  }
+
+  private async getShoppingCart() {
+    (await this.shoppingCartService.getShoppingCart())
+    .subscribe(cart => {
+      this.cart = cart;
+      this.shoppingCartService.reloadCart.next(true);
+    });
   }
 
   ngAfterViewInit() {
