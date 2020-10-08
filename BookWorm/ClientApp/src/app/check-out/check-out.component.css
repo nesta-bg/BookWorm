@@ -1,0 +1,22 @@
+mat-drawer-container {
+    padding: 80px;
+  }
+  
+  .shipping-form {
+      min-width: 150px;
+      max-width: 350px;
+      width: 100%;
+    }
+    
+    .shipping-full-width {
+      width: 100%;
+    }
+  
+    mat-form-field {
+      padding-top: 20px;
+    }
+  
+    button {
+      margin-top: 15px;
+      margin-right: 2px;
+    }

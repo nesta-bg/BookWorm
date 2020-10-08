@@ -1,1 +1,48 @@
-<p>check-out works!</p>
+<mat-drawer-container fxLayout="row" fxLayoutAlign="center center">
+    <mat-drawer-content>
+        <div fxLayout="row" fxLayoutGap="10%">
+            <div>
+                <h1>Shipping</h1>
+                <form [formGroup]="shippingForm" autocomplete="off" class="shipping-form">
+                    <mat-form-field class="shipping-full-width">
+                        <input matInput placeholder="Name" type="text" formControlName="name"
+                            [errorStateMatcher]="matcher">
+                        <mat-hint></mat-hint>
+                        <mat-error *ngIf="name.errors?.required">
+                            Name is <strong>required</strong>.
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="shipping-full-width">
+                        <input matInput placeholder="Address 1" type="text" formControlName="address1"
+                            [errorStateMatcher]="matcher">
+                        <mat-hint></mat-hint>
+                        <mat-error *ngIf="address1.errors?.required">
+                            Address1 is <strong>required</strong>.
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="shipping-full-width">
+                        <input matInput placeholder="Address 2" type="text" formControlName="address2"
+                            [errorStateMatcher]="matcher">
+                        <mat-hint></mat-hint>
+                        <mat-error *ngIf="address2.errors?.required">
+                            Address1 is <strong>required</strong>.
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="shipping-full-width">
+                        <input matInput placeholder="City" type="text" formControlName="city"
+                            [errorStateMatcher]="matcher">
+                        <mat-hint></mat-hint>
+                        <mat-error *ngIf="city.errors?.required">
+                            City is <strong>required</strong>.
+                        </mat-error>
+                    </mat-form-field>
+
+                    <button mat-flat-button color="primary" [disabled]="!shippingForm.valid" (click)="placeOrder()">Place Order</button>
+                </form>
+            </div>
+        </div>
+    </mat-drawer-content>
+</mat-drawer-container>
