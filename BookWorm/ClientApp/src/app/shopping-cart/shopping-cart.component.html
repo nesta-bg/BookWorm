@@ -4,8 +4,14 @@
       <h1>Shopping Cart</h1>
       <p>
         You have {{ cart.totalItemsCount }} items in your shopping cart.
+        <button
+          class="clear-cart-btn"
+          *ngIf="cart.shoppingCartItems.length" 
+          (click)="clearCart()"  
+          mat-raised-button>Clear Shopping Cart
+      </button>
       </p>
-
+      
       <table mat-table [dataSource]="cart.shoppingCartItems">
 
         <ng-container matColumnDef="image">
@@ -48,9 +54,12 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
       </table>
-      <button 
-        (click)="clearCart()"  
-        color="warn" mat-raised-button>Clear Shopping Cart
+      <button
+        *ngIf="cart.shoppingCartItems.length"  
+        color="primary" mat-raised-button>
+          <a routerLink="/check-out">
+              Check Out
+          </a>
       </button>
     </ng-container>
   </mat-drawer-content>
