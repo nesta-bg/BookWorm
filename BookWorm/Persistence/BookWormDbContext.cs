@@ -29,6 +29,11 @@ namespace BookWorm.Persistence
 
             modelBuilder.Entity<Category>()
                 .HasAlternateKey(c => c.ValueName);
+
+            modelBuilder.Entity<ShoppingCart>()
+                .HasOne(c => c.Shipping)
+                .WithOne(s => s.ShoppingCart)
+                .HasForeignKey<Shipping>(s => s.ShoppingCartId);
         }
             
     }
