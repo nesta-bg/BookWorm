@@ -12,6 +12,7 @@ namespace BookWorm.Mapping
             CreateMap<BookResource, Book>()
                 .ForMember(b => b.Id, opt => opt.Ignore());
             CreateMap<ShoppingCartItemResource, ShoppingCartItem>();
+            CreateMap<ShippingResource, Shipping>();
 
             CreateMap<Category, CategoryResource>();
             CreateMap<Book, BookResource>();
@@ -23,6 +24,7 @@ namespace BookWorm.Mapping
             //        dst => dst.ShoppingCartItemResources,
             //        opts => opts.MapFrom(src => src.ShoppingCartItems));
             CreateMap<ShoppingCartItem, ShoppingCartItemResource>();
+            CreateMap<Shipping, ShippingResource>();
         }
     }
 }

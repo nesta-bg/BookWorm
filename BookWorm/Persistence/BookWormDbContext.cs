@@ -15,6 +15,8 @@ namespace BookWorm.Persistence
 
         public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
 
+        public DbSet<Shipping> Shippings { get; set; }
+
         public BookWormDbContext(DbContextOptions<BookWormDbContext> options)
             : base(options)
         { }
@@ -34,6 +36,9 @@ namespace BookWorm.Persistence
                 .HasOne(c => c.Shipping)
                 .WithOne(s => s.ShoppingCart)
                 .HasForeignKey<Shipping>(s => s.ShoppingCartId);
+
+            modelBuilder.Entity<Shipping>()
+               .ToTable("Shippings");
         }
             
     }
