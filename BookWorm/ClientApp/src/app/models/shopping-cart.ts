@@ -12,6 +12,7 @@ export class ShoppingCart {
     for (let productId in itemsMap) {
       let item = itemsMap[productId];
       this.shoppingCartItems.push(new ShoppingCartItem(item.book, item.quantity));
+      this.id = item.shoppingCartId;
     }
 
   }

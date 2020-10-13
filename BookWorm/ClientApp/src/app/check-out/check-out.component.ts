@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { ShoppingCart } from '../models/shopping-cart';
+import { OrderService } from '../services/order.service';
+import { ShoppingCartService } from '../services/shopping-cart.service';
 
 @Component({
   selector: 'app-check-out',
@@ -8,17 +12,24 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class CheckOutComponent implements OnInit {
   shippingForm: FormGroup;
+  cart: ShoppingCart;
 
   constructor(
-    private fb: FormBuilder) { }
+    private fb: FormBuilder,
+    private shoppingCartService: ShoppingCartService,
+    private orderService: OrderService,
+    private toastr: ToastrService) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.shippingForm = this.fb.group({
       name: ['', Validators.required],
       address1: ['', Validators.required],
       address2: ['', Validators.required],
       city: ['', Validators.required]
     });
+
+    (await this.shoppingCartService.getShoppingCart())
+      .subscribe(cart => this.cart = cart);
   }
 
   get name() {
@@ -35,7 +46,26 @@ export class CheckOutComponent implements OnInit {
   }
 
   placeOrder() {
-    console.log(this.shippingForm.value);
+
+    let shipping = {
+      name: this.name.value,
+      address1: this.address1.value,
+      address2: this.address2.value,
+      city: this.city.value,
+      shoppingCartId: this.cart.id
+    };
+
+    this.orderService.storeOrder(shipping)
+      .subscribe(
+        (res) => {
+          this.toastr.success('Success!', 'Successfully Created Order.');
+      },
+      err => {
+        console.log(err);
+        this.toastr.error('Error!', 'Unsuccessfully Created Order.');
+      }
+    );
+
   }
 
 }
