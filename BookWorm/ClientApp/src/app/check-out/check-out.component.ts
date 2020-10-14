@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ShoppingCart } from '../models/shopping-cart';
 import { OrderService } from '../services/order.service';
 import { ShoppingCartService } from '../services/shopping-cart.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-check-out',
@@ -13,12 +14,14 @@ import { ShoppingCartService } from '../services/shopping-cart.service';
 export class CheckOutComponent implements OnInit {
   shippingForm: FormGroup;
   cart: ShoppingCart;
+  user;
 
   constructor(
     private fb: FormBuilder,
     private shoppingCartService: ShoppingCartService,
     private orderService: OrderService,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService,
+    private userService: UserService) { }
 
   async ngOnInit() {
     this.shippingForm = this.fb.group({
@@ -30,6 +33,8 @@ export class CheckOutComponent implements OnInit {
 
     (await this.shoppingCartService.getShoppingCart())
       .subscribe(cart => this.cart = cart);
+
+    this.user = this.userService.currentUser;
   }
 
   get name() {
@@ -52,8 +57,11 @@ export class CheckOutComponent implements OnInit {
       address1: this.address1.value,
       address2: this.address2.value,
       city: this.city.value,
-      shoppingCartId: this.cart.id
+      shoppingCartId: this.cart.id,
+      appUserId: this.user.UserID
     };
+
+    console.log(shipping);
 
     this.orderService.storeOrder(shipping)
       .subscribe(

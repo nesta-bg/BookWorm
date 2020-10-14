@@ -14,5 +14,7 @@
 
         public int ShoppingCartId { get; set; }
 
+        public string AppUserId { get; set; }
+
     }
 }
