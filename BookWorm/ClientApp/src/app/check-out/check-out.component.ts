@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { Shipping } from '../models/shipping';
 import { ShoppingCart } from '../models/shopping-cart';
 import { OrderService } from '../services/order.service';
 import { ShoppingCartService } from '../services/shopping-cart.service';
@@ -51,17 +52,7 @@ export class CheckOutComponent implements OnInit {
   }
 
   placeOrder() {
-
-    let shipping = {
-      name: this.name.value,
-      address1: this.address1.value,
-      address2: this.address2.value,
-      city: this.city.value,
-      shoppingCartId: this.cart.id,
-      appUserId: this.user.UserID
-    };
-
-    console.log(shipping);
+    let shipping = new Shipping(this.shippingForm, this.cart, this.user);
 
     this.orderService.storeOrder(shipping)
       .subscribe(
