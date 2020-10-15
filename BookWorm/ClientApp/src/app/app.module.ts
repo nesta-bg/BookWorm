@@ -68,7 +68,7 @@ import { SummaryPipe } from './shared/summary.pipe';
       {  path: 'no-access', component: NoAccessComponent },
 
       { path: 'check-out', component: CheckOutComponent, canActivate: [AuthGuard] },
-      { path: 'order-success', component: OrderSuccessComponent, canActivate: [AuthGuard] },
+      { path: 'order-success/:id', component: OrderSuccessComponent, canActivate: [AuthGuard] },
       { path: 'myOrders', component: MyOrdersComponent, canActivate: [AuthGuard] },
 
       {
@@ -94,7 +94,7 @@ import { SummaryPipe } from './shared/summary.pipe';
     ]),
     ToastrModule.forRoot({
       preventDuplicates: true,
-      timeOut: 2000,
+      timeOut: 1000,
       closeButton: true,
       progressBar: true,
       progressAnimation: 'increasing'

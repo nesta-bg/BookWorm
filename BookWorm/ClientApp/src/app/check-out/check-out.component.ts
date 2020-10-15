@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Shipping } from '../models/shipping';
 import { ShoppingCart } from '../models/shopping-cart';
@@ -22,7 +23,8 @@ export class CheckOutComponent implements OnInit {
     private shoppingCartService: ShoppingCartService,
     private orderService: OrderService,
     private toastr: ToastrService,
-    private userService: UserService) { }
+    private userService: UserService,
+    private router: Router) { }
 
   async ngOnInit() {
     this.shippingForm = this.fb.group({
@@ -56,8 +58,9 @@ export class CheckOutComponent implements OnInit {
 
     this.orderService.storeOrder(shipping)
       .subscribe(
-        (res) => {
+        (res: any) => {
           this.toastr.success('Success!', 'Successfully Created Order.');
+          this.router.navigate(['/order-success', res.id]);
       },
       err => {
         console.log(err);
