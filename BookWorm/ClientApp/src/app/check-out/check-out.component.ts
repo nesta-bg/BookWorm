@@ -53,20 +53,21 @@ export class CheckOutComponent implements OnInit {
     return this.shippingForm.get('city');
   }
 
-  placeOrder() {
+  async placeOrder() {
     let shipping = new Shipping(this.shippingForm, this.cart, this.user);
 
-    this.orderService.storeOrder(shipping)
+    (await this.orderService.placeOrder(shipping))
       .subscribe(
         (res: any) => {
           this.toastr.success('Success!', 'Successfully Created Order.');
+          this.shoppingCartService.reloadCart.next(true);
           this.router.navigate(['/order-success', res.id]);
-      },
-      err => {
-        console.log(err);
-        this.toastr.error('Error!', 'Unsuccessfully Created Order.');
-      }
-    );
+        },
+        err => {
+          console.log(err);
+          this.toastr.error('Error!', 'Unsuccessfully Created Order.');
+        }
+      );
 
   }
 
