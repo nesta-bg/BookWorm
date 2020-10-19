@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { switchMap } from 'rxjs/operators';
 import { Shipping } from '../models/shipping';
 import { ShoppingCart } from '../models/shopping-cart';
 import { OrderService } from '../services/order.service';
@@ -53,22 +54,18 @@ export class CheckOutComponent implements OnInit {
     return this.shippingForm.get('city');
   }
 
-  async placeOrder() {
+  placeOrder() {
     let shipping = new Shipping(this.shippingForm, this.cart, this.user);
 
-    (await this.orderService.placeOrder(shipping))
-      .subscribe(
-        (res: any) => {
+    this.orderService.placeOrder(shipping)
+      .pipe(
+        switchMap(async (res: any) => {
           this.toastr.success('Success!', 'Successfully Created Order.');
           this.shoppingCartService.reloadCart.next(true);
           this.router.navigate(['/order-success', res.id]);
-        },
-        err => {
-          console.log(err);
-          this.toastr.error('Error!', 'Unsuccessfully Created Order.');
-        }
-      );
-
+          return (await this.shoppingCartService.clearShoppingCart()).toPromise();
+        })
+      ).subscribe();
   }
 
 }
