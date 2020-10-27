@@ -29,6 +29,7 @@ import { ProductCardComponent } from './product-card/product-card.component';
 import { ProductQuantityComponent } from './product-quantity/product-quantity.component';
 import { SummaryPipe } from './shared/summary.pipe';
 import { ShoppingCartSummaryComponent } from './shopping-cart-summary/shopping-cart-summary.component';
+import { ShippingFormComponent } from './shipping-form/shipping-form.component';
 
 
 @NgModule({
@@ -51,7 +52,8 @@ import { ShoppingCartSummaryComponent } from './shopping-cart-summary/shopping-c
     ProductCardComponent,
     ProductQuantityComponent,
     SummaryPipe,
-    ShoppingCartSummaryComponent
+    ShoppingCartSummaryComponent,
+    ShippingFormComponent
   ],
   imports: [
     BrowserModule,

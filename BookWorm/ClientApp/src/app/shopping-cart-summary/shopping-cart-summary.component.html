@@ -4,7 +4,7 @@
   </mat-card-header>
   <mat-card-content>
     <mat-list>
-      <h3 mat-subheader>You have&nbsp;<strong> {{ cart?.totalItemsCount }} </strong>&nbsp;items in your shopping cart.</h3>
+      <h3 mat-subheader>You have {{ cart?.totalItemsCount }} items in your shopping cart.</h3>
       <mat-list-item *ngFor="let item of cart?.shoppingCartItems">
         <p mat-line> {{ item.quantity }} x {{ item.book.title }} </p>
         <p mat-line> <strong> {{ item.totalPrice | currency  }} </strong></p>
