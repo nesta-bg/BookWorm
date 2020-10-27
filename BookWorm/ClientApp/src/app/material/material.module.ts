@@ -11,7 +11,8 @@ import {
   MatTableModule,
   MatPaginatorModule,
   MatSortModule,
-  MatBadgeModule} from '@angular/material';
+  MatBadgeModule,
+  MatListModule} from '@angular/material';
 
 const MaterialComponents = [
   MatToolbarModule,
@@ -25,7 +26,8 @@ const MaterialComponents = [
   MatTableModule,
   MatPaginatorModule,
   MatSortModule,
-  MatBadgeModule
+  MatBadgeModule,
+  MatListModule
 ];
 
 @NgModule({

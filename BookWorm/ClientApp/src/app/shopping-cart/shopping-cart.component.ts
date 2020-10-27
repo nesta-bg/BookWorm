@@ -21,6 +21,7 @@ export class ShoppingCartComponent implements OnInit {
 
   async ngOnInit() {
     this.cart = await this.shoppingCartService.getShoppingCart();
+    this.shoppingCartService.reloadCart.next(true);
 
     this.shoppingCartService.reloadCart.subscribe(async status => {
       if (status) {

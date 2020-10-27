@@ -28,6 +28,7 @@ import { ProductFilterComponent } from './products/product-filter/product-filter
 import { ProductCardComponent } from './product-card/product-card.component';
 import { ProductQuantityComponent } from './product-quantity/product-quantity.component';
 import { SummaryPipe } from './shared/summary.pipe';
+import { ShoppingCartSummaryComponent } from './shopping-cart-summary/shopping-cart-summary.component';
 
 
 @NgModule({
@@ -49,7 +50,8 @@ import { SummaryPipe } from './shared/summary.pipe';
     ProductFilterComponent,
     ProductCardComponent,
     ProductQuantityComponent,
-    SummaryPipe
+    SummaryPipe,
+    ShoppingCartSummaryComponent
   ],
   imports: [
     BrowserModule,

@@ -37,6 +37,15 @@ export class CheckOutComponent implements OnInit {
 
     (await this.shoppingCartService.getShoppingCart())
       .subscribe(cart => this.cart = cart);
+    this.shoppingCartService.reloadCart.next(true);
+
+    this.shoppingCartService.reloadCart
+      .pipe(
+        switchMap(async status => {
+          if (status)
+            return (await this.shoppingCartService.getShoppingCart()).toPromise();
+        })
+      ).subscribe(cart => this.cart = cart);
 
     this.user = this.userService.currentUser;
   }

@@ -1,0 +1,18 @@
+<mat-card class="shopping-card">
+  <mat-card-header>
+    <mat-card-title>Order Summary</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-list>
+      <h3 mat-subheader>You have&nbsp;<strong> {{ cart?.totalItemsCount }} </strong>&nbsp;items in your shopping cart.</h3>
+      <mat-list-item *ngFor="let item of cart?.shoppingCartItems">
+        <p mat-line> {{ item.quantity }} x {{ item.book.title }} </p>
+        <p mat-line> <strong> {{ item.totalPrice | currency  }} </strong></p>
+      </mat-list-item>
+      <h3 mat-subheader><strong>Total</strong></h3>
+      <mat-list-item>
+        <p mat-line> <strong>{{ cart?.totalPrice | currency  }}</strong> </p>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+</mat-card>
