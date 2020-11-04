@@ -25,6 +25,7 @@ namespace BookWorm.Mapping
             //        opts => opts.MapFrom(src => src.ShoppingCartItems));
             CreateMap<ShoppingCartItem, ShoppingCartItemResource>();
             CreateMap<Shipping, ShippingResource>();
+            CreateMap<AppUser, AppUserResource>();
         }
     }
 }

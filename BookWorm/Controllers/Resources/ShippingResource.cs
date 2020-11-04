@@ -14,7 +14,10 @@
 
         public int ShoppingCartId { get; set; }
 
+        public ShoppingCartResource ShoppingCart { get; set; }
+
         public string AppUserId { get; set; }
 
+        public AppUserResource AppUser { get; set; }
     }
 }

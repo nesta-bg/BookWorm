@@ -4,6 +4,7 @@ using BookWorm.Models;
 using BookWorm.Persistence;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BookWorm.Controllers
@@ -33,5 +34,25 @@ namespace BookWorm.Controllers
             var result = mapper.Map<Shipping, ShippingResource>(shipping);
             return Ok(result);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllShippings()
+        {
+            var shippings = await context.Shippings
+                .Include(sh => sh.AppUser)
+                .Include(sh => sh.ShoppingCart)
+                .ThenInclude(sc => sc.ShoppingCartItems)
+                .ThenInclude(sci => sci.Book)
+                .ToListAsync();
+
+            if (shippings == null)
+                return NotFound("There are no any shippings.");
+
+            var shippingsResource = mapper.Map<List<Shipping>, List<ShippingResource>>(shippings);
+
+            return Ok(shippingsResource);
+
+        }
+
     }
 }
