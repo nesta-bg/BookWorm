@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
 import { ShoppingCart } from '../models/shopping-cart';
 import { ShoppingCartService } from '../services/shopping-cart.service';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-check-out',
@@ -21,7 +22,7 @@ export class CheckOutComponent implements OnInit {
     this.shoppingCartService.reloadCart.next(true);
 
     this.shoppingCartService.reloadCart
-      .pipe(
+      .pipe(delay(1),
         switchMap(async status => {
           if (status)
             return (await this.shoppingCartService.getShoppingCart()).toPromise();

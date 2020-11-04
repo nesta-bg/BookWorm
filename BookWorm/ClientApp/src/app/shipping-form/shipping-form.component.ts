@@ -5,7 +5,6 @@ import { ToastrService } from 'ngx-toastr';
 import { Shipping } from '../models/shipping';
 import { OrderService } from '../services/order.service';
 import { ShoppingCart } from '../models/shopping-cart';
-import { switchMap } from 'rxjs/operators';
 import { ShoppingCartService } from '../services/shopping-cart.service';
 import { UserService } from '../services/user.service';
 
@@ -56,14 +55,18 @@ export class ShippingFormComponent implements OnInit {
     let shipping = new Shipping(this.shippingForm, this.cart, this.user);
 
     this.orderService.placeOrder(shipping)
-      .pipe(
-        switchMap(async (res: any) => {
+      .subscribe(
+        (res: any) => {
           this.toastr.success('Success!', 'Successfully Created Order.');
-          this.shoppingCartService.reloadCart.next(true);
+          this.shoppingCartService.removeShoppingCart();
           this.router.navigate(['/order-success', res.id]);
-          return (await this.shoppingCartService.clearShoppingCart()).toPromise();
-        })
-      ).subscribe();
+          this.shoppingCartService.reloadCart.next(true);
+        },
+        err => {
+          this.toastr.error('Error', 'Order Creating failed.');
+          console.log(err);
+        }
+    );
   }
 
 }

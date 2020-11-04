@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { ShoppingCart } from '../models/shopping-cart';
 import { ShoppingCartService } from '../services/shopping-cart.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -23,16 +24,19 @@ export class ShoppingCartComponent implements OnInit {
     this.cart = await this.shoppingCartService.getShoppingCart();
     this.shoppingCartService.reloadCart.next(true);
 
-    this.shoppingCartService.reloadCart.subscribe(async status => {
-      if (status) {
-        this.cart = await this.shoppingCartService.getShoppingCart();
-      }
-    });
+    this.shoppingCartService.reloadCart
+      .pipe(delay(1))
+      .subscribe
+      (async status => {
+        if (status) {
+          this.cart = await this.shoppingCartService.getShoppingCart();
+        }
+      });
 
   }
 
   clearCart() {
-    this.shoppingCartService.clearShoppingCart()
+    this.shoppingCartService.clearShoppingCartItems()
       .subscribe(
         (res: any) => {
           this.toastr.success('Cart cleared!', 'Successful cart clearing.');

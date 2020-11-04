@@ -7,6 +7,7 @@ import { switchMap } from 'rxjs/operators';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { ShoppingCartService } from '../services/shopping-cart.service';
 import { ShoppingCart } from '../models/shopping-cart';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-products',
@@ -34,7 +35,7 @@ export class ProductsComponent implements AfterViewInit, OnInit {
     this.getShoppingCart();
 
     this.shoppingCartService.reloadCart
-      .pipe(
+      .pipe(delay(1),
         switchMap(async status => {
           if (status)
             return (await this.shoppingCartService.getShoppingCart()).toPromise();

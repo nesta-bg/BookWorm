@@ -25,11 +25,15 @@ export class ShoppingCartService {
       ));
   }
 
-  clearShoppingCart() {
+  clearShoppingCartItems() {
     let cartId = localStorage.getItem('cartId');
 
     if (cartId)
       return this.http.delete(this.urlCartItems + '/' + cartId);
+  }
+
+  removeShoppingCart() {
+    localStorage.removeItem('cartId');
   }
 
   async addToCart(product: Product) {
