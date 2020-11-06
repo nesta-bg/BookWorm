@@ -14,5 +14,9 @@ export class OrderService {
     return this.http.post(this.url, shipping);
   }
 
+  getOrders() {
+    return this.http.get(this.url);
+  }
+
 }
 
