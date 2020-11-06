@@ -18,5 +18,9 @@ export class OrderService {
     return this.http.get(this.url);
   }
 
+  getOrdersByUser(userId) {
+    return this.http.get(this.url + '/' + userId);
+  }
+
 }
 
