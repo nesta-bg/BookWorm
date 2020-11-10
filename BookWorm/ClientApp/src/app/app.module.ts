@@ -31,6 +31,7 @@ import { SummaryPipe } from './shared/summary.pipe';
 import { ShoppingCartSummaryComponent } from './shopping-cart-summary/shopping-cart-summary.component';
 import { ShippingFormComponent } from './shipping-form/shipping-form.component';
 import { OrdersComponent } from './orders/orders.component';
+import { OrderDetailsComponent } from './order-details/order-details.component';
 
 
 @NgModule({
@@ -55,7 +56,8 @@ import { OrdersComponent } from './orders/orders.component';
     SummaryPipe,
     ShoppingCartSummaryComponent,
     ShippingFormComponent,
-    OrdersComponent
+    OrdersComponent,
+    OrderDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -71,11 +73,12 @@ import { OrdersComponent } from './orders/orders.component';
       { path: 'shopping-cart', component: ShoppingCartComponent },
       { path: 'registration', component: RegistrationComponent },
       { path: 'login', component: LoginComponent },
-      {  path: 'no-access', component: NoAccessComponent },
+      { path: 'no-access', component: NoAccessComponent },
 
       { path: 'check-out', component: CheckOutComponent, canActivate: [AuthGuard] },
       { path: 'order-success/:id', component: OrderSuccessComponent, canActivate: [AuthGuard] },
       { path: 'myOrders', component: MyOrdersComponent, canActivate: [AuthGuard] },
+      { path: 'order-details/:id', component: OrderDetailsComponent, canActivate: [AuthGuard]},
 
       {
         path: 'admin/products/new',
