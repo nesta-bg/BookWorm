@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Order } from 'src/app/models/order';
 import { OrderService } from 'src/app/services/order.service';
 
 @Component({
@@ -7,9 +8,8 @@ import { OrderService } from 'src/app/services/order.service';
   styleUrls: ['./admin-orders.component.css']
 })
 export class AdminOrdersComponent implements OnInit {
-  orders;
-  displayedColumns: string[] = ['name', 'date', 'id'];
-
+  orders: Order[];
+  title = 'All Orders';
   constructor(private orderService: OrderService) {
     this.orderService.getOrders()
       .subscribe(

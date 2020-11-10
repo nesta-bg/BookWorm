@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { OrderService } from 'src/app/services/order.service';
+import { Order } from '../models/order';
 
 @Component({
   selector: 'my-orders',
@@ -9,8 +10,8 @@ import { OrderService } from 'src/app/services/order.service';
 })
 export class MyOrdersComponent implements OnInit {
   user;
-  orders;
-  displayedColumns: string[] = ['name', 'date', 'id'];
+  orders: Order[];
+  title = 'My Orders';
 
   constructor(
     private userService: UserService,

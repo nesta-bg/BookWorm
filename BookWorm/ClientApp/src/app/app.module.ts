@@ -30,6 +30,7 @@ import { ProductQuantityComponent } from './product-quantity/product-quantity.co
 import { SummaryPipe } from './shared/summary.pipe';
 import { ShoppingCartSummaryComponent } from './shopping-cart-summary/shopping-cart-summary.component';
 import { ShippingFormComponent } from './shipping-form/shipping-form.component';
+import { OrdersComponent } from './orders/orders.component';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { ShippingFormComponent } from './shipping-form/shipping-form.component';
     ProductQuantityComponent,
     SummaryPipe,
     ShoppingCartSummaryComponent,
-    ShippingFormComponent
+    ShippingFormComponent,
+    OrdersComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,28 @@
+table {
+    width: 100%;
+}
+
+.orders-table {
+    min-width: 800px;
+}
+
+td, th {
+    width: 60%;
+}
+
+.mat-header-cell {
+    font-weight: bold;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+a:hover, a:active{
+    color: lightgray;
+}
+
+.mat-drawer-container {
+    padding-bottom: 5%;
+}
