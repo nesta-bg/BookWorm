@@ -1,0 +1,23 @@
+table {
+    min-width: 800px;
+}
+ 
+mat-drawer-content {
+    margin-bottom: 80px;
+}
+ 
+th.mat-header-cell {
+    font-weight: bold;
+}
+ 
+tr.mat-footer-row {
+    font-weight: bold;
+}
+ 
+.thumbnail {
+    width: 80px;
+    height: 80px;
+    border-radius: 100%;
+    background-size: cover;
+    margin: 5px;
+}
