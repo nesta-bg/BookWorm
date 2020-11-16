@@ -42,8 +42,6 @@ namespace BookWorm.Controllers
             var shippings = await context.Shippings
                 .Include(sh => sh.AppUser)
                 .Include(sh => sh.ShoppingCart)
-                .ThenInclude(sc => sc.ShoppingCartItems)
-                .ThenInclude(sci => sci.Book)
                 .ToListAsync();
 
             if (shippings == null)
@@ -62,14 +60,31 @@ namespace BookWorm.Controllers
                 .Where(s => s.AppUserId == userId)
                 .Include(sh => sh.AppUser)
                 .Include(sh => sh.ShoppingCart)
-                .ThenInclude(sc => sc.ShoppingCartItems)
-                .ThenInclude(sci => sci.Book)
                 .ToListAsync();
 
             if (shippings == null)
                 return NotFound("There are no any shippings.");
 
             var shippingsResource = mapper.Map<List<Shipping>, List<ShippingResource>>(shippings);
+
+            return Ok(shippingsResource);
+
+        }
+
+        [HttpGet("shipping/{shippingId}")]
+        public async Task<IActionResult> GetShippingById(int shippingId)
+        {
+            var shipping = await context.Shippings
+                .Where(s => s.Id == shippingId)
+                .Include(sh => sh.ShoppingCart)
+                .ThenInclude(sc => sc.ShoppingCartItems)
+                .ThenInclude(sci => sci.Book)
+                .SingleOrDefaultAsync();
+
+            if (shipping == null)
+                return NotFound("There are no any shippings.");
+
+            var shippingsResource = mapper.Map<Shipping, ShippingResource>(shipping);
 
             return Ok(shippingsResource);
 
