@@ -1,12 +1,12 @@
 <mat-toolbar color="primary">
     <mat-toolbar-row>
-        <a routerLink="/">BookWorm</a>
-
+        
+        <a routerLink="/" style="margin-left: 5px;">
+            <mat-icon>home</mat-icon>
+        </a> 
+        
         <div fxFlex fxLayout="row" fxLayoutAlign="flex-start">
             <ul fxLayout="row" fxLayoutGap="20px">
-                <li>
-                    <a href="#">Link</a>
-                </li>
                 <li>
                     <a routerLink="/shopping-cart">
                         <mat-icon *ngIf="cart | async as cart" matBadge="{{ cart.totalItemsCount }}" matBadgeColor="accent">shopping_cart</mat-icon>
@@ -19,10 +19,14 @@
             <ul fxLayout="row" fxLayoutGap="20px">
                 <ng-template #anonymousUser>
                     <li>
-                        <a routerLink="/registration">Sign Up</a>
+                        <a routerLink="/registration">
+                            <mat-icon>playlist_add</mat-icon>
+                        </a>
                     </li>
                     <li>
-                        <a routerLink="/login">Sign In</a>
+                        <a routerLink="/login">
+                            <mat-icon>input</mat-icon>
+                        </a>
                     </li>
                 </ng-template>
                 <li *ngIf="user; else anonymousUser">
