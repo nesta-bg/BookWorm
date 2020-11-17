@@ -3,9 +3,7 @@ using BookWorm.Controllers.Resources;
 using BookWorm.Models;
 using BookWorm.Persistence;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace BookWorm.Controllers
@@ -16,17 +14,19 @@ namespace BookWorm.Controllers
     {
         private readonly BookWormDbContext context;
         private readonly IMapper mapper;
+        private readonly IBookRepository repository;
 
-        public BooksController(BookWormDbContext context, IMapper mapper)
+        public BooksController(BookWormDbContext context, IMapper mapper, IBookRepository repository)
         {
             this.context = context;
             this.mapper = mapper;
+            this.repository = repository;
         }
 
         [HttpGet]
         public async Task<IEnumerable<BookResource>> GetBooks()
         {
-            var books = await context.Books.ToListAsync();
+            var books = await repository.GetAllBooks();
 
             return mapper.Map<List<Book>, List<BookResource>>(books);
         }
@@ -34,7 +34,7 @@ namespace BookWorm.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetBook(int id)
         {
-            var book = await context.Books.SingleOrDefaultAsync(b => b.Id == id);
+            var book = await repository.GetBookById(id);
 
             if (book == null)
                 return NotFound();
@@ -47,7 +47,7 @@ namespace BookWorm.Controllers
         [HttpGet("category/{category}")]
         public async Task<IEnumerable<BookResource>> GetBooksByCategory(string category)
         {
-            var books = await context.Books.Where(b => b.Category.ValueName == category).ToListAsync();
+            var books = await repository.GetBooksByCategory(category);
 
             return mapper.Map<List<Book>, List<BookResource>>(books);
         }
@@ -57,10 +57,10 @@ namespace BookWorm.Controllers
         {
             var book = mapper.Map<BookResource, Book>(bookResource);
 
-            context.Books.Add(book);
+            repository.AddBook(book);
             await context.SaveChangesAsync();
 
-            book = await context.Books.SingleOrDefaultAsync(b => b.Id == book.Id);
+            book = await repository.GetBookById(book.Id);
 
             var result = mapper.Map<Book, BookResource>(book);
 
@@ -73,7 +73,7 @@ namespace BookWorm.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var book = await context.Books.SingleOrDefaultAsync(b => b.Id == id);
+            var book = await repository.GetBookById(id);
 
             if (book == null)
                 return NotFound();
@@ -87,12 +87,12 @@ namespace BookWorm.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBook(int id)
         {
-            var book = await context.Books.SingleOrDefaultAsync(b => b.Id == id);
+            var book = await repository.GetBookById(id);
 
             if (book == null)
                 return NotFound();
 
-            context.Books.Remove(book);
+            repository.RemoveBook(book);
             context.SaveChanges();
 
             return Ok();

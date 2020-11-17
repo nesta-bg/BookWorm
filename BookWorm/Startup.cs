@@ -46,6 +46,8 @@ namespace BookWorm
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<BookWormDbContext>();
 
+            services.AddScoped<IBookRepository, BookRepository>();
+
             services.Configure<IdentityOptions>(options => {
                 options.Password.RequireDigit = false;
                 options.Password.RequireNonAlphanumeric = false;
