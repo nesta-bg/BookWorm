@@ -10,7 +10,7 @@ import { Order } from '../models/order';
 })
 export class MyOrdersComponent implements OnInit {
   user;
-  orders: Order[];
+  orders: Order[] = [];
   title = 'My Orders';
 
   constructor(

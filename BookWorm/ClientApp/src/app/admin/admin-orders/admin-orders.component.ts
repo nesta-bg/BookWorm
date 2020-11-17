@@ -8,7 +8,7 @@ import { OrderService } from 'src/app/services/order.service';
   styleUrls: ['./admin-orders.component.css']
 })
 export class AdminOrdersComponent implements OnInit {
-  orders: Order[];
+  orders: Order[] = [];
   title = 'All Orders';
   constructor(private orderService: OrderService) {
     this.orderService.getOrders()
