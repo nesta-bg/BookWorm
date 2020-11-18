@@ -3,7 +3,6 @@ using BookWorm.Controllers.Resources;
 using BookWorm.Models;
 using BookWorm.Persistence;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
 
@@ -14,20 +13,19 @@ namespace BookWorm.Controllers
     {
         private readonly BookWormDbContext context;
         private readonly IMapper mapper;
+        private readonly IShoppingCartRepository repository;
 
-        public ShoppingCartsController(BookWormDbContext context, IMapper mapper)
+        public ShoppingCartsController(BookWormDbContext context, IMapper mapper, IShoppingCartRepository repository)
         {
             this.context = context;
             this.mapper = mapper;
+            this.repository = repository;
         }
 
         [HttpGet("{shoppingCartId}")]
         public async Task<IActionResult> GetShoppingCart(int shoppingCartId)
         {
-            var shoppingCart = await context.ShoppingCarts
-                .Include(c => c.ShoppingCartItems)
-                .ThenInclude(i => i.Book)
-                .SingleOrDefaultAsync(c => c.Id == shoppingCartId);
+            var shoppingCart = await repository.GetShoppingCartByCartIdWithItems(shoppingCartId);
 
             if (shoppingCart == null)
                 return NotFound("There is no shoppingCart for specified query.");
@@ -41,10 +39,10 @@ namespace BookWorm.Controllers
         {
             var shoppingCart = new ShoppingCart { DateCreated = DateTime.Now };
 
-            context.ShoppingCarts.Add(shoppingCart);
+            repository.AddShoppingCart(shoppingCart);
             await context.SaveChangesAsync();
 
-            shoppingCart = await context.ShoppingCarts.SingleOrDefaultAsync(c => c.Id == shoppingCart.Id);
+            shoppingCart = await repository.GetShoppingCartByCartId(shoppingCart.Id);
 
 
             return Ok(shoppingCart.Id);

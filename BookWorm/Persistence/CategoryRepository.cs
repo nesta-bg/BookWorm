@@ -16,8 +16,7 @@ namespace BookWorm.Persistence
 
         public async Task<List<Category>> GetAllCategories()
         {
-            return await context
-                .Categories
+            return await context.Categories
                 .ToListAsync();
         }
     }
