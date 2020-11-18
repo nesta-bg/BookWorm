@@ -51,7 +51,7 @@ export class ShippingFormComponent implements OnInit {
   }
 
   placeOrder() {
-    console.log(this.shippingForm.value);
+    // console.log(this.shippingForm.value);
     let shipping = new Shipping(this.shippingForm, this.cart, this.user);
 
     this.orderService.placeOrder(shipping)

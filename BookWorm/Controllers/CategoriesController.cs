@@ -3,7 +3,6 @@ using BookWorm.Controllers.Resources;
 using BookWorm.Models;
 using BookWorm.Persistence;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,19 +11,19 @@ namespace BookWorm.Controllers
     [Route("api/[controller]")]
     public class CategoriesController : Controller
     {
-        private readonly BookWormDbContext context;
         private readonly IMapper mapper;
+        private readonly ICategoryRepository repository;
 
-        public CategoriesController(BookWormDbContext context, IMapper mapper)
+        public CategoriesController(IMapper mapper, ICategoryRepository repository)
         {
-            this.context = context;
             this.mapper = mapper;
+            this.repository = repository;
         }
 
         [HttpGet]
         public async Task<IEnumerable<CategoryResource>> GetCategories()
         {
-            var categories = await context.Categories.ToListAsync();
+            var categories = await repository.GetAllCategories();
 
             return mapper.Map<List<Category>, List<CategoryResource>>(categories);
 

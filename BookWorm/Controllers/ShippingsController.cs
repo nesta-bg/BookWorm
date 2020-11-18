@@ -3,9 +3,7 @@ using BookWorm.Controllers.Resources;
 using BookWorm.Models;
 using BookWorm.Persistence;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace BookWorm.Controllers
@@ -15,11 +13,13 @@ namespace BookWorm.Controllers
     {
         private readonly BookWormDbContext context;
         private readonly IMapper mapper;
+        private readonly IShippingRepository repository;
 
-        public ShippingsController(BookWormDbContext context, IMapper mapper)
+        public ShippingsController(BookWormDbContext context, IMapper mapper, IShippingRepository repository)
         {
             this.context = context;
             this.mapper = mapper;
+            this.repository = repository;
         }
 
         [HttpPost]
@@ -27,10 +27,10 @@ namespace BookWorm.Controllers
         {
             var shipping = mapper.Map<ShippingResource, Shipping>(shippingResource);
 
-            context.Shippings.Add(shipping);
+            repository.AddShipping(shipping);
             await context.SaveChangesAsync();
 
-            shipping = await context.Shippings.SingleOrDefaultAsync(s => s.Id == shipping.Id);
+            shipping = await repository.GetShippingById(shipping.Id);
 
             var result = mapper.Map<Shipping, ShippingResource>(shipping);
             return Ok(result);
@@ -39,10 +39,7 @@ namespace BookWorm.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllShippings()
         {
-            var shippings = await context.Shippings
-                .Include(sh => sh.AppUser)
-                .Include(sh => sh.ShoppingCart)
-                .ToListAsync();
+            var shippings = await repository.GetAllShippings();
 
             if (shippings == null)
                 return NotFound("There are no any shippings.");
@@ -56,11 +53,7 @@ namespace BookWorm.Controllers
         [HttpGet("{userId}")]
         public async Task<IActionResult> GetShippingsByUser(string userId)
         {
-            var shippings = await context.Shippings
-                .Where(s => s.AppUserId == userId)
-                .Include(sh => sh.AppUser)
-                .Include(sh => sh.ShoppingCart)
-                .ToListAsync();
+            var shippings = await repository.GetShippingsByUser(userId);
 
             if (shippings == null)
                 return NotFound("There are no any shippings.");
@@ -74,12 +67,7 @@ namespace BookWorm.Controllers
         [HttpGet("shipping/{shippingId}")]
         public async Task<IActionResult> GetShippingById(int shippingId)
         {
-            var shipping = await context.Shippings
-                .Where(s => s.Id == shippingId)
-                .Include(sh => sh.ShoppingCart)
-                .ThenInclude(sc => sc.ShoppingCartItems)
-                .ThenInclude(sci => sci.Book)
-                .SingleOrDefaultAsync();
+            var shipping = await repository.GetShippingByIdWithCartAndProducts(shippingId);
 
             if (shipping == null)
                 return NotFound("There are no any shippings.");

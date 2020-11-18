@@ -47,6 +47,10 @@ namespace BookWorm
                 .AddEntityFrameworkStores<BookWormDbContext>();
 
             services.AddScoped<IBookRepository, BookRepository>();
+            
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+
+            services.AddScoped<IShippingRepository, ShippingRepository>();
 
             services.Configure<IdentityOptions>(options => {
                 options.Password.RequireDigit = false;
