@@ -11,15 +11,18 @@ namespace BookWorm.Controllers
     [Route("api/[controller]")]
     public class ShippingsController : Controller
     {
-        private readonly BookWormDbContext context;
         private readonly IMapper mapper;
         private readonly IShippingRepository repository;
+        private readonly IUnitOfWork unitOfWork;
 
-        public ShippingsController(BookWormDbContext context, IMapper mapper, IShippingRepository repository)
+        public ShippingsController(
+            IMapper mapper, 
+            IShippingRepository repository,
+            IUnitOfWork unitOfWork)
         {
-            this.context = context;
             this.mapper = mapper;
             this.repository = repository;
+            this.unitOfWork = unitOfWork;
         }
 
         [HttpPost]
@@ -28,7 +31,7 @@ namespace BookWorm.Controllers
             var shipping = mapper.Map<ShippingResource, Shipping>(shippingResource);
 
             repository.AddShipping(shipping);
-            await context.SaveChangesAsync();
+            await unitOfWork.CompleteAsync();
 
             shipping = await repository.GetShippingById(shipping.Id);
 

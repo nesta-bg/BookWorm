@@ -11,15 +11,18 @@ namespace BookWorm.Controllers
     [Route("api/[controller]")]
     public class ShoppingCartsController : Controller
     {
-        private readonly BookWormDbContext context;
         private readonly IMapper mapper;
         private readonly IShoppingCartRepository repository;
+        private readonly IUnitOfWork unitOfWork;
 
-        public ShoppingCartsController(BookWormDbContext context, IMapper mapper, IShoppingCartRepository repository)
+        public ShoppingCartsController(
+            IMapper mapper, 
+            IShoppingCartRepository repository,
+            IUnitOfWork unitOfWork)
         {
-            this.context = context;
             this.mapper = mapper;
             this.repository = repository;
+            this.unitOfWork = unitOfWork;
         }
 
         [HttpGet("{shoppingCartId}")]
@@ -40,7 +43,7 @@ namespace BookWorm.Controllers
             var shoppingCart = new ShoppingCart { DateCreated = DateTime.Now };
 
             repository.AddShoppingCart(shoppingCart);
-            await context.SaveChangesAsync();
+            await unitOfWork.CompleteAsync();
 
             shoppingCart = await repository.GetShoppingCartByCartId(shoppingCart.Id);
 

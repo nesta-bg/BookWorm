@@ -12,15 +12,18 @@ namespace BookWorm.Controllers
     [Route("api/[controller]")]
     public class BooksController : Controller
     {
-        private readonly BookWormDbContext context;
         private readonly IMapper mapper;
         private readonly IBookRepository repository;
+        private readonly IUnitOfWork unitOfWork;
 
-        public BooksController(BookWormDbContext context, IMapper mapper, IBookRepository repository)
+        public BooksController(
+            IMapper mapper, 
+            IBookRepository repository,
+            IUnitOfWork unitOfWork)
         {
-            this.context = context;
             this.mapper = mapper;
             this.repository = repository;
+            this.unitOfWork = unitOfWork;
         }
 
         [HttpGet]
@@ -58,7 +61,7 @@ namespace BookWorm.Controllers
             var book = mapper.Map<BookResource, Book>(bookResource);
 
             repository.AddBook(book);
-            await context.SaveChangesAsync();
+            await unitOfWork.CompleteAsync();
 
             book = await repository.GetBookById(book.Id);
 
@@ -79,7 +82,7 @@ namespace BookWorm.Controllers
                 return NotFound();
 
             mapper.Map(bookResource, book);
-            context.SaveChanges();
+            await unitOfWork.CompleteAsync();
 
             return Ok(mapper.Map<Book, BookResource>(book));
         }
@@ -93,7 +96,7 @@ namespace BookWorm.Controllers
                 return NotFound();
 
             repository.RemoveBook(book);
-            context.SaveChanges();
+            await unitOfWork.CompleteAsync();
 
             return Ok();
         }

@@ -10,24 +10,24 @@ namespace BookWorm.Controllers
     [Route("api/[controller]")]
     public class ShoppingCartItemsController : Controller
     {
-        private readonly BookWormDbContext context;
         private readonly IMapper mapper;
         private readonly IBookRepository bookRepository;
         private readonly IShoppingCartItemRepository shoppingCartItemRepository;
         private readonly IShoppingCartRepository shoppingCartRepository;
+        private readonly IUnitOfWork unitOfWork;
 
         public ShoppingCartItemsController(
-            BookWormDbContext context,
             IMapper mapper,
             IBookRepository bookRepository,
             IShoppingCartItemRepository shoppingCartItemRepository,
-            IShoppingCartRepository shoppingCartRepository)
+            IShoppingCartRepository shoppingCartRepository,
+            IUnitOfWork unitOfWork)
         {
-            this.context = context;
             this.mapper = mapper;
             this.bookRepository = bookRepository;
             this.shoppingCartItemRepository = shoppingCartItemRepository;
             this.shoppingCartRepository = shoppingCartRepository;
+            this.unitOfWork = unitOfWork;
         }
 
         [HttpGet("item/{bookId}/{shoppingCartId}")]
@@ -65,7 +65,7 @@ namespace BookWorm.Controllers
             var shoppingCartItem = mapper.Map<ShoppingCartItemResource, ShoppingCartItem>(shoppingCartItemResource);
 
             shoppingCartItemRepository.AddShoppingCartItem(shoppingCartItem);
-            await context.SaveChangesAsync();
+            await unitOfWork.CompleteAsync();
 
             shoppingCartItem = await shoppingCartItemRepository.GetShoppingCartItemByCartId(shoppingCartItem.Id);
 
@@ -82,7 +82,7 @@ namespace BookWorm.Controllers
                 return NotFound();
 
             mapper.Map(shoppingCartItemResource, shoppingCartItem);
-            await context.SaveChangesAsync();
+            await unitOfWork.CompleteAsync();
 
             return Ok(mapper.Map<ShoppingCartItem, ShoppingCartItemResource>(shoppingCartItem));
         }
@@ -96,7 +96,7 @@ namespace BookWorm.Controllers
                 return NotFound();
 
             shoppingCartItemRepository.RemoveShoppingCartItem(shoppingCartItem);
-            await context.SaveChangesAsync();
+            await unitOfWork.CompleteAsync();
 
             return Ok(shoppingCartItem.ShoppingCartId);
         }
@@ -114,7 +114,7 @@ namespace BookWorm.Controllers
                 shoppingCartItemRepository.RemoveShoppingCartItem(item);
             }
 
-            await context.SaveChangesAsync();
+            await unitOfWork.CompleteAsync();
 
             return Ok(shoppingCartId);
         }

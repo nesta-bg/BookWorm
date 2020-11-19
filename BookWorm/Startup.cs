@@ -56,6 +56,8 @@ namespace BookWorm
 
             services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
 
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+
             services.Configure<IdentityOptions>(options => {
                 options.Password.RequireDigit = false;
                 options.Password.RequireNonAlphanumeric = false;
