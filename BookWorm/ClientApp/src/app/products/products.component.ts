@@ -35,7 +35,7 @@ export class ProductsComponent implements AfterViewInit, OnInit {
     this.getShoppingCart();
 
     this.shoppingCartService.reloadCart
-      .pipe(delay(1),
+      .pipe(delay(100),
         switchMap(async status => {
           if (status)
             return (await this.shoppingCartService.getShoppingCart()).toPromise();

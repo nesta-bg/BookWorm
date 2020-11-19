@@ -25,7 +25,7 @@ export class ShoppingCartComponent implements OnInit {
     this.shoppingCartService.reloadCart.next(true);
 
     this.shoppingCartService.reloadCart
-      .pipe(delay(1))
+      .pipe(delay(100))
       .subscribe
       (async status => {
         if (status) {

@@ -22,7 +22,7 @@ export class CheckOutComponent implements OnInit {
     this.shoppingCartService.reloadCart.next(true);
 
     this.shoppingCartService.reloadCart
-      .pipe(delay(1),
+      .pipe(delay(100),
         switchMap(async status => {
           if (status)
             return (await this.shoppingCartService.getShoppingCart()).toPromise();
