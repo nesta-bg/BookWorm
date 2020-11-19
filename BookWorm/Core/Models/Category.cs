@@ -1,4 +1,4 @@
-﻿namespace BookWorm.Models
+﻿namespace BookWorm.Core.Models
 {
     public class Category
     {

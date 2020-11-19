@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace BookWorm.Persistence
+namespace BookWorm.Core
 {
     public interface IUnitOfWork
     {

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using BookWorm.Controllers.Resources;
-using BookWorm.Models;
-using BookWorm.Persistence;
+using BookWorm.Core.Models;
+using BookWorm.Core;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;

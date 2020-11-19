@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using BookWorm.Core;
+using System.Threading.Tasks;
 
 namespace BookWorm.Persistence
 {

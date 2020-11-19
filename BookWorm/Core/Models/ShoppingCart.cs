@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace BookWorm.Models
+namespace BookWorm.Core.Models
 {
     public class ShoppingCart
     {

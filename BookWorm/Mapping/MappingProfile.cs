@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using BookWorm.Controllers.Resources;
-using BookWorm.Models;
+using BookWorm.Core.Models;
 
 namespace BookWorm.Mapping
 {

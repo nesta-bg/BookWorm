@@ -1,4 +1,4 @@
-﻿using BookWorm.Models;
+﻿using BookWorm.Core.Models;
 using Microsoft.AspNetCore.Identity;
 using System;
 

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using BookWorm.Controllers.Resources;
-using BookWorm.Models;
+using BookWorm.Core.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;

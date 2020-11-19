@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 
-namespace BookWorm.Models
+namespace BookWorm.Core.Models
 {
     public class AppUser : IdentityUser
     {

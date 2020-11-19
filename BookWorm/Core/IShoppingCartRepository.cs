@@ -1,7 +1,7 @@
-﻿using BookWorm.Models;
+﻿using BookWorm.Core.Models;
 using System.Threading.Tasks;
 
-namespace BookWorm.Persistence
+namespace BookWorm.Core
 {
     public interface IShoppingCartRepository
     {
