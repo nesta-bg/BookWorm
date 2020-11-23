@@ -1,37 +1,36 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from './material/material.module';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { RouterModule } from '@angular/router';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router';
 import { ToastrModule } from 'ngx-toastr';
+import { SharedModule } from 'shared/shared.module';
 
-import { AppComponent } from './app.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { HomeComponent } from './home/home.component';
-import { ProductsComponent } from './products/products.component';
-import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
-import { CheckOutComponent } from './check-out/check-out.component';
-import { OrderSuccessComponent } from './order-success/order-success.component';
-import { MyOrdersComponent } from './my-orders/my-orders.component';
-import { AdminProductsComponent } from './admin/admin-products/admin-products.component';
 import { AdminOrdersComponent } from './admin/admin-orders/admin-orders.component';
+import { AdminProductsComponent } from './admin/admin-products/admin-products.component';
+import { ProductFormComponent } from './admin/product-form/product-form.component';
+import { AppComponent } from './app.component';
+import { CheckOutComponent } from './check-out/check-out.component';
+import { HomeComponent } from './home/home.component';
+import { MaterialModule } from './material/material.module';
+import { MyOrdersComponent } from './my-orders/my-orders.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { NoAccessComponent } from './no-access/no-access.component';
+import { OrderDetailsComponent } from './order-details/order-details.component';
+import { OrderSuccessComponent } from './order-success/order-success.component';
+import { OrdersComponent } from './orders/orders.component';
+import { SummaryPipe } from './pipes/summary.pipe';
+import { ProductFilterComponent } from './products/product-filter/product-filter.component';
+import { ProductsComponent } from './products/products.component';
+import { AdminAuthGuard } from './services/admin-auth-guard.service';
+import { AuthGuard } from './shared/services/auth-guard.service';
+import { ShippingFormComponent } from './shipping-form/shipping-form.component';
+import { ShoppingCartSummaryComponent } from './shopping-cart-summary/shopping-cart-summary.component';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { LoginComponent } from './user/login/login.component';
 import { RegistrationComponent } from './user/registration/registration.component';
-import { AuthGuard } from './shared/services/auth-guard.service';
-import { AdminAuthGuard } from './services/admin-auth-guard.service';
-import { NoAccessComponent } from './no-access/no-access.component';
-import { ProductFormComponent } from './admin/product-form/product-form.component';
-import { ProductFilterComponent } from './products/product-filter/product-filter.component';
-import { ProductCardComponent } from 'shared/components/product-card/product-card.component';
-import { ProductQuantityComponent } from 'shared/components/product-quantity/product-quantity.component';
-import { SummaryPipe } from './pipes/summary.pipe';
-import { ShoppingCartSummaryComponent } from './shopping-cart-summary/shopping-cart-summary.component';
-import { ShippingFormComponent } from './shipping-form/shipping-form.component';
-import { OrdersComponent } from './orders/orders.component';
-import { OrderDetailsComponent } from './order-details/order-details.component';
 
 
 @NgModule({
@@ -51,8 +50,6 @@ import { OrderDetailsComponent } from './order-details/order-details.component';
     NoAccessComponent,
     ProductFormComponent,
     ProductFilterComponent,
-    ProductCardComponent,
-    ProductQuantityComponent,
     SummaryPipe,
     ShoppingCartSummaryComponent,
     ShippingFormComponent,
@@ -61,6 +58,7 @@ import { OrderDetailsComponent } from './order-details/order-details.component';
   ],
   imports: [
     BrowserModule,
+    SharedModule,
     BrowserAnimationsModule,
     MaterialModule,
     FlexLayoutModule,
