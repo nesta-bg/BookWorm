@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { CategoryService } from 'src/app/services/category.service';
+import { CategoryService } from '../../shared/services/category.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ProductService } from 'src/app/services/product.service';
+import { ProductService } from '../../shared/services/product.service';
 import { ToastrService } from 'ngx-toastr';
-import { PriceValidators } from 'src/app/shared/price.validators';
+import { PriceValidators } from '../../validators/price.validators';
 import { Router, ActivatedRoute } from '@angular/router';
 import { take } from 'rxjs/operators';
-import { Product } from 'src/app/models/product';
+import { Product } from '../../shared/models/product';
 
 @Component({
   selector: 'product-form',

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { switchMap } from 'rxjs/operators';
-import { ShoppingCart } from '../models/shopping-cart';
-import { ShoppingCartService } from '../services/shopping-cart.service';
+import { ShoppingCart } from '../shared/models/shopping-cart';
+import { ShoppingCartService } from '../shared/services/shopping-cart.service';
 import { delay } from 'rxjs/operators';
 
 @Component({

@@ -2,11 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Shipping } from '../models/shipping';
-import { OrderService } from '../services/order.service';
-import { ShoppingCart } from '../models/shopping-cart';
-import { ShoppingCartService } from '../services/shopping-cart.service';
-import { UserService } from '../services/user.service';
+import { Shipping } from '../shared/models/shipping';
+import { OrderService } from '../shared/services/order.service';
+import { ShoppingCart } from '../shared/models/shopping-cart';
+import { ShoppingCartService } from '../shared/services/shopping-cart.service';
+import { UserService } from '../shared/services/user.service';
 
 @Component({
   selector: 'shipping-form',

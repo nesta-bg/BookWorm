@@ -1,10 +1,6 @@
+import { AppUser } from './app-user';
 import { ShoppingCart } from './shopping-cart';
 import { ShoppingCartItem } from './shopping-cart-item';
-
-export interface AppUser {
-    id: string;
-    fullName: string;
-}
 
 export class Order {
     id: number;
