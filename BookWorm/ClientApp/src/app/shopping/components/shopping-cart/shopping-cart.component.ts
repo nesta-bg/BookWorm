@@ -1,8 +1,8 @@
 import { Component, OnInit, SecurityContext } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
-import { ShoppingCart } from '../shared/models/shopping-cart';
-import { ShoppingCartService } from '../shared/services/shopping-cart.service';
+import { ShoppingCart } from 'shared/models/shopping-cart';
+import { ShoppingCartService } from 'shared/services/shopping-cart.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { delay } from 'rxjs/operators';
 

@@ -1,12 +1,12 @@
 import { Component, AfterViewInit, OnInit } from '@angular/core';
-import { ProductService } from '../shared/services/product.service';
+import { ProductService } from 'shared/services/product.service';
 import { ActivatedRoute } from '@angular/router';
-import { Product } from '../shared/models/product';
+import { Product } from 'shared/models/product';
 import { of, defer, Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
-import { ShoppingCartService } from '../shared/services/shopping-cart.service';
-import { ShoppingCart } from '../shared/models/shopping-cart';
+import { ShoppingCartService } from 'shared/services/shopping-cart.service';
+import { ShoppingCart } from 'shared/models/shopping-cart';
 import { delay } from 'rxjs/operators';
 
 @Component({
