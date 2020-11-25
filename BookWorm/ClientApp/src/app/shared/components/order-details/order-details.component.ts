@@ -1,7 +1,7 @@
 import { Component, OnInit, SecurityContext } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Order } from '../shared/models/order';
-import { OrderService } from '../shared/services/order.service';
+import { Order } from 'shared/models/order';
+import { OrderService } from 'shared/services/order.service';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
