@@ -1,5 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { SharedModule } from 'shared/shared.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule, MatCardModule, MatIconModule, MatInputModule, MatListModule,
+  MatSidenavModule, MatTableModule, MatToolbarModule } from '@angular/material';
 
 import { CheckOutComponent } from './components/check-out/check-out.component';
 import { OrderSuccessComponent } from './components/order-success/order-success.component';
@@ -9,14 +15,8 @@ import { MyOrdersComponent } from './components/my-orders/my-orders.component';
 import { ShippingFormComponent } from './components/shipping-form/shipping-form.component';
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 import { ShoppingCartSummaryComponent } from './components/shopping-cart-summary/shopping-cart-summary.component';
-import { RouterModule } from '@angular/router';
-import { AuthGuard } from 'shared/services/auth-guard.service';
-import { SharedModule } from 'shared/shared.module';
-import { ReactiveFormsModule } from '@angular/forms';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatButtonModule, MatCardModule, MatIconModule, MatInputModule, MatListModule,
-  MatSidenavModule, MatTableModule, MatToolbarModule } from '@angular/material';
 
+import { AuthGuard } from 'shared/services/auth-guard.service';
 
 @NgModule({
   declarations: [

@@ -1,7 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
@@ -10,19 +8,15 @@ import { SharedModule } from 'shared/shared.module';
 import { AdminModule } from './admin/admin.module';
 import { ShoppingModule } from './shopping/shopping.module';
 import { CoreModule } from './core/core.module';
-import { MaterialModule } from './material/material.module';
+import { MembershipModule } from './membership/membership.module';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './membership/login/login.component';
-import { RegistrationComponent } from './membership/registration/registration.component';
 import { ProductsComponent } from './shopping/components/products/products.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-    LoginComponent,
-    RegistrationComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -30,16 +24,11 @@ import { ProductsComponent } from './shopping/components/products/products.compo
     AdminModule,
     ShoppingModule,
     CoreModule,
+    MembershipModule,
     BrowserAnimationsModule,
-    MaterialModule,
-    FlexLayoutModule,
-    ReactiveFormsModule,
-    FormsModule,
     HttpClientModule,
     RouterModule.forRoot([
       { path: '', component: ProductsComponent },
-      { path: 'registration', component: RegistrationComponent },
-      { path: 'login', component: LoginComponent },
       { path: '**', redirectTo: ''}
     ]),
     ToastrModule.forRoot({
