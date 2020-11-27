@@ -8,23 +8,16 @@ import { RouterModule } from '@angular/router';
 import { ToastrModule } from 'ngx-toastr';
 import { SharedModule } from 'shared/shared.module';
 import { AdminModule } from './admin/admin.module';
+import { ShoppingModule } from './shopping/shopping.module';
 import { MaterialModule } from './material/material.module';
 
 import { AppComponent } from './app.component';
-import { CheckOutComponent } from './shopping/components/check-out/check-out.component';
 import { HomeComponent } from './home/home.component';
-import { MyOrdersComponent } from './shopping/components/my-orders/my-orders.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { NoAccessComponent } from './no-access/no-access.component';
-import { OrderSuccessComponent } from './shopping/components/order-success/order-success.component';
-import { ProductFilterComponent } from './shopping/components/products/product-filter/product-filter.component';
-import { ProductsComponent } from './shopping/components/products/products.component';
-import { AuthGuard } from './shared/services/auth-guard.service';
-import { ShippingFormComponent } from './shopping/components/shipping-form/shipping-form.component';
-import { ShoppingCartSummaryComponent } from './shopping/components/shopping-cart-summary/shopping-cart-summary.component';
-import { ShoppingCartComponent } from './shopping/components/shopping-cart/shopping-cart.component';
 import { LoginComponent } from './user/login/login.component';
 import { RegistrationComponent } from './user/registration/registration.component';
+import { ProductsComponent } from './shopping/components/products/products.component';
 
 
 @NgModule({
@@ -32,22 +25,15 @@ import { RegistrationComponent } from './user/registration/registration.componen
     AppComponent,
     NavbarComponent,
     HomeComponent,
-    ProductsComponent,
-    ShoppingCartComponent,
-    CheckOutComponent,
-    OrderSuccessComponent,
-    MyOrdersComponent,
     LoginComponent,
     RegistrationComponent,
     NoAccessComponent,
-    ProductFilterComponent,
-    ShoppingCartSummaryComponent,
-    ShippingFormComponent
   ],
   imports: [
     BrowserModule,
     SharedModule,
     AdminModule,
+    ShoppingModule,
     BrowserAnimationsModule,
     MaterialModule,
     FlexLayoutModule,
@@ -56,15 +42,9 @@ import { RegistrationComponent } from './user/registration/registration.componen
     HttpClientModule,
     RouterModule.forRoot([
       { path: '', component: ProductsComponent },
-      { path: 'products', component: ProductsComponent },
-      { path: 'shopping-cart', component: ShoppingCartComponent },
       { path: 'registration', component: RegistrationComponent },
       { path: 'login', component: LoginComponent },
       { path: 'no-access', component: NoAccessComponent },
-
-      { path: 'check-out', component: CheckOutComponent, canActivate: [AuthGuard] },
-      { path: 'order-success/:id', component: OrderSuccessComponent, canActivate: [AuthGuard] },
-      { path: 'myOrders', component: MyOrdersComponent, canActivate: [AuthGuard] },
     ]),
     ToastrModule.forRoot({
       preventDuplicates: true,
