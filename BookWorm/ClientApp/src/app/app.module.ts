@@ -12,9 +12,9 @@ import { ShoppingModule } from './shopping/shopping.module';
 import { MaterialModule } from './material/material.module';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { NoAccessComponent } from './no-access/no-access.component';
+import { HomeComponent } from './core/components/home/home.component';
+import { NavbarComponent } from './core/components/navbar/navbar.component';
+import { NoAccessComponent } from './core/components/no-access/no-access.component';
 import { LoginComponent } from './user/login/login.component';
 import { RegistrationComponent } from './user/registration/registration.component';
 import { ProductsComponent } from './shopping/components/products/products.component';
