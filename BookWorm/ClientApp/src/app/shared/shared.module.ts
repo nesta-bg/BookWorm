@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatButtonModule, MatCardModule, MatSidenavModule, MatTableModule } from '@angular/material';
+import { MaterialModule } from 'app/material/material.module';
 import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { OrderDetailsComponent } from './components/order-details/order-details.component';
 import { OrdersComponent } from './components/orders/orders.component';
@@ -23,11 +24,9 @@ import { AuthGuard } from './services/auth-guard.service';
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     FlexLayoutModule,
-    MatCardModule,
-    MatButtonModule,
-    MatTableModule,
-    MatSidenavModule,
+    MaterialModule,
     RouterModule.forChild([
         { path: 'order-details/:id', component: OrderDetailsComponent, canActivate: [AuthGuard]}
     ])
@@ -37,7 +36,10 @@ import { AuthGuard } from './services/auth-guard.service';
     ProductQuantityComponent,
     OrdersComponent,
     OrderDetailsComponent,
-    SummaryPipe
+    SummaryPipe,
+    ReactiveFormsModule,
+    FlexLayoutModule,
+    MaterialModule
   ],
   providers: [],
 })

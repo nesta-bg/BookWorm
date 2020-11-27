@@ -2,10 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from 'shared/shared.module';
-import { ReactiveFormsModule } from '@angular/forms';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatButtonModule, MatCardModule, MatIconModule, MatInputModule, MatListModule,
-  MatSidenavModule, MatTableModule, MatToolbarModule } from '@angular/material';
 
 import { CheckOutComponent } from './components/check-out/check-out.component';
 import { OrderSuccessComponent } from './components/order-success/order-success.component';
@@ -17,6 +13,7 @@ import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.
 import { ShoppingCartSummaryComponent } from './components/shopping-cart-summary/shopping-cart-summary.component';
 
 import { AuthGuard } from 'shared/services/auth-guard.service';
+
 
 @NgModule({
   declarations: [
@@ -32,16 +29,6 @@ import { AuthGuard } from 'shared/services/auth-guard.service';
   imports: [
     CommonModule,
     SharedModule,
-    FlexLayoutModule,
-    MatSidenavModule,
-    MatIconModule,
-    MatToolbarModule,
-    MatInputModule,
-    MatTableModule,
-    MatCardModule,
-    MatListModule,
-    MatButtonModule,
-    ReactiveFormsModule,
     RouterModule.forChild([
       { path: 'products', component: ProductsComponent },
       { path: 'shopping-cart', component: ShoppingCartComponent },
