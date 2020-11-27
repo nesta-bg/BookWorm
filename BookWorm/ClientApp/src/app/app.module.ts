@@ -9,12 +9,10 @@ import { ToastrModule } from 'ngx-toastr';
 import { SharedModule } from 'shared/shared.module';
 import { AdminModule } from './admin/admin.module';
 import { ShoppingModule } from './shopping/shopping.module';
+import { CoreModule } from './core/core.module';
 import { MaterialModule } from './material/material.module';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './core/components/home/home.component';
-import { NavbarComponent } from './core/components/navbar/navbar.component';
-import { NoAccessComponent } from './core/components/no-access/no-access.component';
 import { LoginComponent } from './user/login/login.component';
 import { RegistrationComponent } from './user/registration/registration.component';
 import { ProductsComponent } from './shopping/components/products/products.component';
@@ -23,17 +21,15 @@ import { ProductsComponent } from './shopping/components/products/products.compo
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,
-    HomeComponent,
     LoginComponent,
-    RegistrationComponent,
-    NoAccessComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
     SharedModule,
     AdminModule,
     ShoppingModule,
+    CoreModule,
     BrowserAnimationsModule,
     MaterialModule,
     FlexLayoutModule,
@@ -44,7 +40,7 @@ import { ProductsComponent } from './shopping/components/products/products.compo
       { path: '', component: ProductsComponent },
       { path: 'registration', component: RegistrationComponent },
       { path: 'login', component: LoginComponent },
-      { path: 'no-access', component: NoAccessComponent },
+      { path: '**', redirectTo: ''}
     ]),
     ToastrModule.forRoot({
       preventDuplicates: true,
