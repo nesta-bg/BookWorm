@@ -13,8 +13,8 @@ import { CoreModule } from './core/core.module';
 import { MaterialModule } from './material/material.module';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './user/login/login.component';
-import { RegistrationComponent } from './user/registration/registration.component';
+import { LoginComponent } from './membership/login/login.component';
+import { RegistrationComponent } from './membership/registration/registration.component';
 import { ProductsComponent } from './shopping/components/products/products.component';
 
 
