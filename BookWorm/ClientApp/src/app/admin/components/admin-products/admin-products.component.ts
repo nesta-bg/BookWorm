@@ -13,10 +13,13 @@ export class AdminProductsComponent implements OnInit {
   displayedColumns: string[] = ['title', 'price', 'action'];
   products: MatTableDataSource<Product>;
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   constructor(private productService: ProductService) {
+  }
+
+  ngOnInit() {
     this.productService.getAll()
       .subscribe(
         (res: any) => {
@@ -28,10 +31,6 @@ export class AdminProductsComponent implements OnInit {
           console.log(err);
         }
       );
-  }
-
-  ngOnInit() {
-
   }
 
   applyFilter(filterValue: string) {

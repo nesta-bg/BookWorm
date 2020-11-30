@@ -25,14 +25,8 @@ export class ProductFormComponent implements OnInit {
     private toastr: ToastrService,
     private router: Router,
     private route: ActivatedRoute) {
-    this.categoryService.getAll()
-      .subscribe(categories => this.categories = categories);
 
     this.id = this.route.snapshot.paramMap.get('id');
-
-    // if (this.id) this.productService.get(id).pipe(take(1)).subscribe(p => this.product = p);
-    if (this.id)
-      this.productService.get(this.id).subscribe(p => this.editProduct(p));
   }
 
   ngOnInit() {
@@ -42,6 +36,13 @@ export class ProductFormComponent implements OnInit {
       categoryId: ['', Validators.required],
       imageUrl: ['', Validators.required]
     });
+
+    this.categoryService.getAll()
+      .subscribe(categories => this.categories = categories);
+
+    // if (this.id) this.productService.get(id).pipe(take(1)).subscribe(p => this.product = p);
+    if (this.id)
+      this.productService.get(this.id).subscribe(p => this.editProduct(p));
   }
 
   get title() {

@@ -10,7 +10,11 @@ import { OrderService } from 'shared/services/order.service';
 export class AdminOrdersComponent implements OnInit {
   orders: Order[] = [];
   title = 'All Orders';
+
   constructor(private orderService: OrderService) {
+  }
+
+  ngOnInit() {
     this.orderService.getOrders()
       .subscribe(
         (res: any) => {
@@ -20,9 +24,6 @@ export class AdminOrdersComponent implements OnInit {
           console.log(err);
         }
       );
-  }
-
-  ngOnInit() {
   }
 
 }

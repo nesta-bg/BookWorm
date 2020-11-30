@@ -16,8 +16,11 @@ export class MyOrdersComponent implements OnInit {
   constructor(
     private userService: UserService,
     private orderService: OrderService) {
+  }
 
+  ngOnInit() {
     this.user = this.userService.currentUser;
+
     this.orderService.getOrdersByUser(this.user.UserID)
       .subscribe(
         (res: any) => {
@@ -27,9 +30,6 @@ export class MyOrdersComponent implements OnInit {
           console.log(err);
         }
       );
-  }
-
-  ngOnInit() {
   }
 
 }

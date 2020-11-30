@@ -20,7 +20,9 @@ export class OrderDetailsComponent implements OnInit {
     private sanitizer: DomSanitizer) {
 
     this.id = this.route.snapshot.paramMap.get('id');
+  }
 
+  ngOnInit() {
     if (this.id) {
       this.orderService.getOrderById(this.id)
         .subscribe(
@@ -31,9 +33,6 @@ export class OrderDetailsComponent implements OnInit {
             console.log(err);
           });
     }
-  }
-
-  ngOnInit() {
   }
 
   getBackground(imageUrl: string) {
