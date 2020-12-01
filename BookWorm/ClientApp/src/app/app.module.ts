@@ -1,5 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
@@ -12,6 +12,7 @@ import { MembershipModule } from './membership/membership.module';
 
 import { AppComponent } from './app.component';
 import { ProductsComponent } from './shopping/components/products/products.component';
+import { AppErrorHandler } from './app.error-handler';
 
 
 @NgModule({
@@ -39,7 +40,9 @@ import { ProductsComponent } from './shopping/components/products/products.compo
       progressAnimation: 'increasing'
     })
   ],
-  providers: [],
+  providers: [
+    { provide: ErrorHandler, useClass: AppErrorHandler }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

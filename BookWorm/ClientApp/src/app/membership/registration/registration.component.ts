@@ -79,7 +79,7 @@ register() {
       }
     },
     err => {
-      console.log(err);
+      throw err;
     }
   );
 }

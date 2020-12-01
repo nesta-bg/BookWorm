@@ -28,7 +28,7 @@ export class AdminProductsComponent implements OnInit {
           this.products.sort = this.sort;
         },
         err => {
-          console.log(err);
+          throw err;
         }
       );
   }

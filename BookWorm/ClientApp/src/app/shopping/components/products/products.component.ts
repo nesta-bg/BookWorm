@@ -43,7 +43,7 @@ export class ProductsComponent implements AfterViewInit, OnInit {
       ).subscribe(
         cart => this.cart = cart,
         err => {
-          console.log(err);
+          throw err;
         }
       );
   }
@@ -71,7 +71,7 @@ export class ProductsComponent implements AfterViewInit, OnInit {
       this.filteredProducts = filteredProducts;
       },
       err => {
-        console.log(err);
+        throw err;
       }
     );
   }
@@ -83,7 +83,7 @@ export class ProductsComponent implements AfterViewInit, OnInit {
       this.shoppingCartService.reloadCart.next(true);
       },
       err => {
-        console.log(err);
+        throw err;
       }
     );
   }

@@ -30,7 +30,7 @@ export class OrderDetailsComponent implements OnInit {
             this.order = res;
           },
           err => {
-            console.log(err);
+            throw err;
           });
     }
   }

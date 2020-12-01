@@ -46,7 +46,7 @@ export class ProductFormComponent implements OnInit {
         .subscribe(
           p => this.editProduct(p)
           , err => {
-            console.log(err);
+            throw err;
           }
         );
   }

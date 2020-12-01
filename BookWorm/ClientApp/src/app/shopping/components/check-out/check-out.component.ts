@@ -21,7 +21,7 @@ export class CheckOutComponent implements OnInit {
       .subscribe(
         cart => this.cart = cart,
         err => {
-          console.log(err);
+          throw err;
         }
       );
     this.shoppingCartService.reloadCart.next(true);
@@ -35,7 +35,7 @@ export class CheckOutComponent implements OnInit {
       ).subscribe(
         cart => this.cart = cart,
         err => {
-          console.log(err);
+          throw err;
         }
       );
   }

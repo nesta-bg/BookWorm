@@ -33,7 +33,7 @@ export class ShoppingCartComponent implements OnInit {
           }
         },
         err => {
-          console.log(err);
+          throw err;
         }
       );
 

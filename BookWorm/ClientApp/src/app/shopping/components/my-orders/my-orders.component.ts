@@ -27,7 +27,7 @@ export class MyOrdersComponent implements OnInit {
           this.orders = res;
         },
         err => {
-          console.log(err);
+          throw err;
         }
       );
   }
