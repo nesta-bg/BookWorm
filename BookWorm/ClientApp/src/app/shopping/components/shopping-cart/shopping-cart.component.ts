@@ -27,11 +27,15 @@ export class ShoppingCartComponent implements OnInit {
     this.shoppingCartService.reloadCart
       .pipe(delay(100))
       .subscribe
-      (async status => {
-        if (status) {
-          this.cart = await this.shoppingCartService.getShoppingCart();
+        (async status => {
+          if (status) {
+            this.cart = await this.shoppingCartService.getShoppingCart();
+          }
+        },
+        err => {
+          console.log(err);
         }
-      });
+      );
 
   }
 

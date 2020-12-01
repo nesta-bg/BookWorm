@@ -19,7 +19,8 @@ export class NavbarComponent implements OnInit {
     private userService: UserService,
     private shoppingCartService: ShoppingCartService,
     private router: Router) {
-    this.user = this.userService.currentUser;
+
+      this.user = this.userService.currentUser;
   }
 
   async ngOnInit() {

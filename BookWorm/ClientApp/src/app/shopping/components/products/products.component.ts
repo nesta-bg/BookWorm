@@ -40,7 +40,12 @@ export class ProductsComponent implements AfterViewInit, OnInit {
           if (status)
             return (await this.shoppingCartService.getShoppingCart()).toPromise();
         })
-      ).subscribe(cart => this.cart = cart);
+      ).subscribe(
+        cart => this.cart = cart,
+        err => {
+          console.log(err);
+        }
+      );
   }
 
   private populateProducts() {
@@ -61,9 +66,10 @@ export class ProductsComponent implements AfterViewInit, OnInit {
           );
       })
     )
-    .subscribe((filteredProducts) => {
+    .subscribe(
+      (filteredProducts) => {
       this.filteredProducts = filteredProducts;
-    },
+      },
       err => {
         console.log(err);
       }
@@ -75,7 +81,11 @@ export class ProductsComponent implements AfterViewInit, OnInit {
     .subscribe(cart => {
       this.cart = cart;
       this.shoppingCartService.reloadCart.next(true);
-    });
+      },
+      err => {
+        console.log(err);
+      }
+    );
   }
 
   ngAfterViewInit() {

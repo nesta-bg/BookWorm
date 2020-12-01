@@ -42,7 +42,13 @@ export class ProductFormComponent implements OnInit {
 
     // if (this.id) this.productService.get(id).pipe(take(1)).subscribe(p => this.product = p);
     if (this.id)
-      this.productService.get(this.id).subscribe(p => this.editProduct(p));
+      this.productService.get(this.id)
+        .subscribe(
+          p => this.editProduct(p)
+          , err => {
+            console.log(err);
+          }
+        );
   }
 
   get title() {

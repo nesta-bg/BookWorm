@@ -18,7 +18,12 @@ export class CheckOutComponent implements OnInit {
   async ngOnInit() {
 
     (await this.shoppingCartService.getShoppingCart())
-      .subscribe(cart => this.cart = cart);
+      .subscribe(
+        cart => this.cart = cart,
+        err => {
+          console.log(err);
+        }
+      );
     this.shoppingCartService.reloadCart.next(true);
 
     this.shoppingCartService.reloadCart
@@ -27,7 +32,12 @@ export class CheckOutComponent implements OnInit {
           if (status)
             return (await this.shoppingCartService.getShoppingCart()).toPromise();
         })
-      ).subscribe(cart => this.cart = cart);
+      ).subscribe(
+        cart => this.cart = cart,
+        err => {
+          console.log(err);
+        }
+      );
   }
 
 }
